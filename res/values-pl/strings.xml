@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="action_settings">Ustawienia</string>
+	<string name="WriteNFCButton">Programuj NFC</string>
+	<string name="Database">Baza danych</string>
+	<string name="Keyfile">Plik-klucz (keyfile)</string>
+	<string name="KeyfileNotRequired">Brak</string>
+	<string name="UseAKeyFile">Wybierz plik-klucz:</string>
+	<string name="Password">Hasło</string>
+	<string name="PasswordNotRequired">Brak hasła</string>
+	<string name="AskEachTime">Pytaj za każdym razem</string>
+	<string name="UseAPassword">Użyj następującego hasła:</string>
+	<string name="SelectDatabaseFirst">Proszę najpierw wybrać bazę danych!</string>
+	<string name="SelectAKeyfile">Wybierz plik-klucz</string>
+	<string name="SelectADatabase">Wybierz bazę danych</string>
+	<string name="Success">Programowanie zakończone powodzeniem :)</string>
+	<string name="ErrorDatabaseWriting">Błąd podczas zapisu bazy danych!</string>
+	<string name="Failed">Nie udało się zaprogramować :(</string>
+	<string name="PlaceTag">Umieść tag NFC pod telefonem.</string>
+	<string name="Exit">Zakończ</string>
+	<string name="LaunchingKeePass">Uruchamianie KeePassDroid&#8230;</string>
+	<string name="missing">[BRAK]</string>
+	<string name="About">O programie</string>
+	<string name="Donate">Wspomóż</string>
+</resources>

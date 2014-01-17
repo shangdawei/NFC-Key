@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NFC Key</string>
+    <string name="action_settings">Settings</string>
+    <string name="WriteNFCButton">Write NFC</string>
+	<string name="Database">Database</string>
+	<string name="Keyfile">Keyfile</string>
+	<string name="KeyfileNotRequired">Keyfile not required</string>
+	<string name="UseAKeyFile">Use a keyfile:</string>
+	<string name="Password">Password</string>
+	<string name="PasswordNotRequired">Password not required</string>
+	<string name="AskEachTime">Ask each time</string>
+	<string name="UseAPassword">Use a password:</string>
+	<string name="SelectDatabaseFirst">Please select a database first</string>
+	<string name="SelectAKeyfile">Select a keyfile</string>
+	<string name="SelectADatabase">Select a database</string>
+	<string name="Success">Tag written successfully!</string>
+	<string name="ErrorDatabaseWriting">Error writing to application database!</string>
+	<string name="Failed">Couldn\'t write tag :(</string>
+	<string name="PlaceTag">Place a tag against your device to write to it.</string>
+	<string name="Exit">Exit</string>
+	<string name="LaunchingKeePass">Launching KeePassDroid&#8230;</string>
+	<string name="missing">[MISSING]</string>
+	<string name="About">About</string>
+	<string name="Donate">Donate</string>
+		
+</resources>

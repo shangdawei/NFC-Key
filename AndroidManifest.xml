@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pl.net.szafraniec.NFCKey"
+    android:versionCode="46"
+    android:versionName="Mifare Ultralight compatible" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+	<uses-permission android:name="android.permission.NFC"/>
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo">
+        <activity android:name="MainActivity" android:label="@string/app_name" android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity><activity
+            android:name="pl.net.szafraniec.NFCKey.WriteActivity"
+            android:label="@string/app_name" android:screenOrientation="nosensor">
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="pl.net.szafraniec.NFCKey.WriteNFCActivity"
+                android:label="@string/app_name" android:theme="@android:style/Theme.Holo.NoActionBar" android:screenOrientation="nosensor">
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity
+		    android:name="com.ipaulpro.afilechooser.FileChooserActivity"
+		    android:icon="@drawable/ic_chooser"
+		    android:label="@string/choose_file" >
+	        <intent-filter>
+	            <action android:name="android.intent.action.GET_CONTENT" />
+	
+	            <category android:name="android.intent.category.DEFAULT" />
+	            <category android:name="android.intent.category.OPENABLE" />
+	
+	            <data android:mimeType="*/*" />
+	        </intent-filter>
+	    </activity>
+	    <activity
+	        android:name="ReadActivity"
+	        android:icon="@drawable/ic_launcher" android:screenOrientation="nosensor">
+    		<intent-filter>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<data android:mimeType="application/x-knfc" />
+				<action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+			</intent-filter>
+		</activity>
+	    <activity android:name="ReadTagActivity" android:screenOrientation="nosensor" android:icon="@drawable/ic_launcher">
+	        <intent-filter>
+	        </intent-filter>
+	    </activity>
+	    		    
+	        
+    </application>
+
+</manifest>

@@ -1,0 +1,179 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.net.szafraniec.NFCKey.WriteActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="504dp" >
+
+        <TextView
+            android:id="@+id/tv_database"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/Database"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/ll_database"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_database"
+            android:layout_below="@+id/tv_database" >
+
+            <ImageButton
+                android:id="@+id/choose_database"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="54dp"
+                android:layout_height="44dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/folder_outline_dark" />
+
+            <TextView
+                android:id="@+id/database_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_keyfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_database"
+            android:text="@string/Keyfile"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RadioGroup
+            android:id="@+id/keyfile_radiobuttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/tv_keyfile"
+            android:layout_below="@+id/tv_keyfile" >
+
+            <RadioButton
+                android:id="@+id/keyfile_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_keyfile"
+                android:layout_below="@+id/tv_keyfile"
+                android:text="@string/KeyfileNotRequired" />
+
+            <RadioButton
+                android:id="@+id/keyfile_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_keyfile"
+                android:layout_below="@+id/keyfile_no"
+                android:text="@string/UseAKeyFile" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/keyfile_yes"
+                android:layout_below="@+id/keyfile_yes" >
+
+                <ImageButton
+                    android:id="@+id/choose_keyfile"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="54dp"
+                    android:layout_height="44dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/folder_outline_dark" />
+
+                <TextView
+                    android:id="@+id/keyfile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_keyfile"
+            android:layout_below="@+id/keyfile_radiobuttons"
+            android:text="@string/Password"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RadioGroup
+            android:id="@+id/password_radiobuttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/tv_password"
+            android:layout_below="@+id/tv_password" >
+
+            <RadioButton
+                android:id="@+id/password_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/RadioButton02"
+                android:layout_below="@+id/tv_password"
+                android:text="@string/PasswordNotRequired" />
+
+            <RadioButton
+                android:id="@+id/password_ask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_password"
+                android:layout_below="@+id/password_no"
+                android:text="@string/AskEachTime" />
+
+            <RadioButton
+                android:id="@+id/password_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_keyfile"
+                android:layout_below="@+id/password_ask"
+                android:text="@string/UseAPassword" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/password_yes"
+                android:layout_below="@+id/password_yes"
+                android:ems="10"
+                android:inputType="textPassword" >
+            </EditText>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/app_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/write_nfc"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/WriteNFCButton" />
+
+        <Switch
+            android:id="@+id/autostart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/password_radiobuttons"
+            android:layout_marginTop="29dp"
+            android:checked="true"
+            android:text="Autostart" />
+
+    </RelativeLayout>
+
+</ScrollView>
