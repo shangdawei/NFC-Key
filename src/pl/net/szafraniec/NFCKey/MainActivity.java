@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import pl.net.szafraniec.NFCKey.R;
 
 public class MainActivity extends Activity {
@@ -31,6 +32,15 @@ public class MainActivity extends Activity {
         
 		Button w = (Button) findViewById(R.id.WriteBtn);
         w.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View self) {
+            	Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+		ImageView IV = (ImageView) findViewById(R.id.NFCLogo);
+        IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View self) {
             	Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
@@ -72,6 +82,10 @@ public class MainActivity extends Activity {
     			AboutDialog about = new AboutDialog(this);
     			about.setTitle(getString(R.string.About));
     			about.show();
+    			break;
+	        case R.id.donate:
+            	Intent intent = new Intent(getApplicationContext(), DonateActivity.class);
+                startActivity(intent);
     			break;
 	    }
 	            return true;

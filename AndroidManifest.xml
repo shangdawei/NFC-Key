@@ -57,6 +57,9 @@
 	        <intent-filter>
 	        </intent-filter>
 	    </activity>
+	    <activity android:name="DonateActivity" android:icon="@drawable/ic_launcher">
+	        <intent-filter></intent-filter>
+	    </activity>
 	    		    
 	        
     </application>
