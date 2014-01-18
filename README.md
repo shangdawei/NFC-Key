@@ -2,6 +2,7 @@
 # NFC Key
 
 Use your NFC-equipped Android phone to unlock your KeePassDroid database.
+You can use any NFC Tag, including very popular Mifare Ultralight.
 
 Requires:
 
