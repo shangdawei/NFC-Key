@@ -38,22 +38,13 @@
             android:layout_centerVertical="true"
             android:src="@drawable/nfc" />
 
-                <Button
-                    android:id="@+id/WriteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/imageView1"
-                    android:layout_below="@+id/imageView1"
-                    android:text="@string/WriteNFCButton"
-                    android:visibility="gone" />
-
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/NFCLogo"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="32dp"
                     android:text="@string/WriteNFCButton"
                     android:textColor="#000000" />
 

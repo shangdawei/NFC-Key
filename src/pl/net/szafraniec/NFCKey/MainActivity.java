@@ -30,15 +30,7 @@ public class MainActivity extends Activity {
             }
         });
         
-		Button w = (Button) findViewById(R.id.WriteBtn);
-        w.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View self) {
-            	Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-                startActivity(intent);
-            }
-        });
-        
+      
 		ImageView IV = (ImageView) findViewById(R.id.NFCLogo);
         IV.setOnClickListener(new View.OnClickListener() {
             @Override
