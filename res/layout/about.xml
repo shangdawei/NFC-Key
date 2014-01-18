@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:stretchColumns="*">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:stretchColumns="*" >
 
-	<TableRow android:layout_height="wrap_content" >
+    <TableRow android:layout_height="wrap_content" >
 
-		<ImageView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="left|center"
-		    android:src="@drawable/ic_launcher" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:src="@drawable/ic_launcher" />
 
-		<TextView
-		    android:id="@+id/info_text"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:gravity="center" />
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+    </TableRow>
 
-	</TableRow>
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_height="100dp" >
 
-	<TableRow>
+        <TextView
+            android:id="@+id/legal_text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:linksClickable="true"
+            android:scrollbars="vertical"
+            android:textColor="#cccccc"
+            android:textSize="10dip"
+            android:textStyle="italic" />
 
-	    <TextView
-	        android:id="@+id/legal_text"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_margin="8dip"
-	        android:layout_span="2"
-	        android:textColor="#cccccc"
-	        android:textSize="10dip"
-	        android:textStyle="italic" />
-	</TableRow>
+    </ScrollView>
 
 </TableLayout>
