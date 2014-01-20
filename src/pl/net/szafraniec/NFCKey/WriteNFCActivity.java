@@ -10,9 +10,11 @@ import android.nfc.FormatException;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class WriteNFCActivity extends Activity {
 //private static final String LOG_TAG = "WriteNFCActivity";
@@ -71,21 +73,51 @@ public class WriteNFCActivity extends Activity {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             int success = 0;
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-            // Write the payload to the tag.
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Ndef ndef = Ndef.get(tag);
-            try {
-                ndef.connect();
-                ndef.writeNdefMessage(WriteActivity.nfc_payload);
-                ndef.close();
-                success = 1;
+            if (ndef != null) {
+            Toast.makeText(getApplicationContext(), "NDEF Detected", Toast.LENGTH_SHORT).show();
+            try{
+              ndef.connect();
+              ndef.writeNdefMessage(WriteActivity.nfc_payload);
+              ndef.close();
+              success = 1;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "IOExceptionWrite", Toast.LENGTH_SHORT).show();
+          
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "NullPointerWrite", Toast.LENGTH_SHORT).show();
+             
             } catch (FormatException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "FormatExceptionWrite", Toast.LENGTH_SHORT).show();
             }
-
+ 
+            } else {
+              NdefFormatable format = NdefFormatable.get(tag);
+              if (format != null) {
+               Toast.makeText(getApplicationContext(), "Blank card", Toast.LENGTH_SHORT).show();
+               try{  
+                format.connect();
+                format.format(WriteActivity.nfc_payload);
+                format.close();
+                success = 1;
+              } catch (IOException e) {
+                  e.printStackTrace();
+                  Toast.makeText(getApplicationContext(), "IOExceptionFormat", Toast.LENGTH_SHORT).show();
+            
+              } catch (NullPointerException e) {
+                  e.printStackTrace();
+                  Toast.makeText(getApplicationContext(), "NullPointerFormat", Toast.LENGTH_SHORT).show();
+               
+              } catch (FormatException e) {
+                  e.printStackTrace();
+                  Toast.makeText(getApplicationContext(), "FormatExceptionFormat", Toast.LENGTH_SHORT).show();
+              	}
+              }} 
             setResult(success);
             finish();
         }

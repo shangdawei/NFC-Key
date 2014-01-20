@@ -68,7 +68,6 @@ public class ReadTagActivity extends Activity {
     {
 		byte[] payload = null;
     	String action = intent.getAction();
-    	Toast.makeText(getApplicationContext(), "Intent", Toast.LENGTH_SHORT).show();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
 	        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
