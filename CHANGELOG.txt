@@ -1,0 +1,8 @@
+Changelog of NFCKey:
+
+Version 1.01:
+*New tag writing procedure
+*better exception handling
+
+Version 1.0:
+*Initial release
