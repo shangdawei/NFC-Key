@@ -1,5 +1,5 @@
 <h3>NFC Key</h3>
-Version 1.0 beta<br>
+Version 1.01<br>
 Developed by M.Szafraniec<br>
 
 
