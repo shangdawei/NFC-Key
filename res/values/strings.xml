@@ -18,7 +18,9 @@
 	<string name="Success">Tag written successfully!</string>
 	<string name="ErrorDatabaseWriting">Error writing to application database!</string>
 	<string name="Failed">Couldn\'t write tag :(</string>
-	<string name="PlaceTag">Place a tag against your device to write to it.</string>
+	<string name="PlaceTag">Place a tag against your device.</string>
+	<string name="PlaceSourceTag">Place a SOURCE tag against your device to read from it.</string>
+	<string name="PlaceCloneTag">Place a NEW tag against your device to clone to it.</string>
 	<string name="Exit">Exit</string>
 	<string name="LaunchingKeePass">Launching KeePassDroid&#8230;</string>
 	<string name="missing">[MISSING]</string>
@@ -30,4 +32,5 @@
 	<string name="SendABitcoin">Send a Bitcoin:</string>
 	<string name="IfYouLike">If this app is useful for you, please consider making a donation.</string>
 	<string name="ReadNFCTag">Read NFC tag</string>
+	<string name="CloneNFCTag">Clone NFC tag</string>
 </resources>

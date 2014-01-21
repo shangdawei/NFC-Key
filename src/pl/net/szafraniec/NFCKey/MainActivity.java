@@ -30,6 +30,16 @@ public class MainActivity extends Activity {
             }
         });
         
+		Button clone = (Button) findViewById(R.id.clone);
+        clone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View self) {
+            	Intent intent = new Intent(getApplicationContext(), CloneReadActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        
       
 		ImageView IV = (ImageView) findViewById(R.id.NFCLogo);
         IV.setOnClickListener(new View.OnClickListener() {

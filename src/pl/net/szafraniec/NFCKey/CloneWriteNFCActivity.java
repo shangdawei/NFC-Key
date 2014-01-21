@@ -14,16 +14,21 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class WriteNFCActivity extends Activity {
+public class CloneWriteNFCActivity extends Activity {
 //private static final String LOG_TAG = "WriteNFCActivity";
 
 
     protected void onCreate(Bundle sis) {
         super.onCreate(sis);
         setContentView(R.layout.activity_write_nfc);
-
+        TextView tv1 = (TextView) findViewById(R.id.textView);
+        tv1.setText(getString(R.string.PlaceCloneTag));
+        ProgressBar pb1 = (ProgressBar) findViewById(R.id.progressBar1);
+        pb1.setVisibility(View.INVISIBLE);
         setResult(0);
         Button b = (Button) findViewById(R.id.cancel_nfc_write_button);
         b.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +74,13 @@ public class WriteNFCActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent)
     {
+    	ProgressBar pb1 = (ProgressBar) findViewById(R.id.progressBar1);
         String action = intent.getAction();
+        pb1.setVisibility(View.VISIBLE);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             int success = 0;
-
+            //Toast.makeText(getApplicationContext(), "Writing...", Toast.LENGTH_SHORT).show();
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Ndef ndef = Ndef.get(tag);
             if (ndef != null) {
@@ -117,9 +124,17 @@ public class WriteNFCActivity extends Activity {
                   e.printStackTrace();
                   Toast.makeText(getApplicationContext(), "FormatExceptionFormat", Toast.LENGTH_SHORT).show();
               	}
-              }} 
-            setResult(success);
-            finish();
+              }
+        
+            } 
+            //pb1.setVisibility(View.INVISIBLE);
+            //setResult(success);
+            if (success == 1) {
+            	Toast.makeText(getApplicationContext(), getString(R.string.Success), Toast.LENGTH_SHORT).show();
+            } else {Toast.makeText(getApplicationContext(), getString(R.string.Failed), Toast.LENGTH_SHORT).show();}
+            
+            //finish();
         }
+        
     }
 }

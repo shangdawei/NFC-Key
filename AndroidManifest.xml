@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.net.szafraniec.NFCKey"
-    android:versionCode="2"
-    android:versionName="1.01" >
+    android:versionCode="3"
+    android:versionName="1.02" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -58,6 +58,12 @@
 	        </intent-filter>
 	    </activity>
 	    <activity android:name="DonateActivity" android:icon="@drawable/ic_launcher">
+	        <intent-filter></intent-filter>
+	    </activity>
+	    <activity android:name="CloneReadActivity">
+	        <intent-filter></intent-filter>
+	    </activity>
+	    <activity android:name="CloneWriteNFCActivity">
 	        <intent-filter></intent-filter>
 	    </activity>
 	    		    

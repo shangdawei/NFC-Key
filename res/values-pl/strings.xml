@@ -17,6 +17,8 @@
 	<string name="ErrorDatabaseWriting">Błąd podczas zapisu bazy danych!</string>
 	<string name="Failed">Nie udało się zaprogramować :(</string>
 	<string name="PlaceTag">Umieść tag NFC pod telefonem.</string>
+	<string name="PlaceSourceTag">Umieść ŹRÓDŁOWY tag do skopiowania.</string>
+	<string name="PlaceCloneTag">Umieść nowy tag, na który chcesz sklonować klucz.</string>
 	<string name="Exit">Zakończ</string>
 	<string name="LaunchingKeePass">Uruchamianie KeePassDroid&#8230;</string>
 	<string name="missing">[BRAK]</string>
@@ -27,4 +29,6 @@
 	<string name="SendABitcoin">Wyślij Bitcoin:</string>
 	<string name="IfYouLike">Jeśli ta aplikacja jest Ci pomocna, wesprzyj twórcę.</string>
 	<string name="ReadNFCTag">Odczytaj tag NFC</string>
+	<string name="CloneNFCTag">Sklonuj tag NFC</string>
+	
 </resources>
