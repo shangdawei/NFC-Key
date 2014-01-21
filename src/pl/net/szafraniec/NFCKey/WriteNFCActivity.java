@@ -77,7 +77,6 @@ public class WriteNFCActivity extends Activity {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Ndef ndef = Ndef.get(tag);
             if (ndef != null) {
-            //Toast.makeText(getApplicationContext(), "NDEF Detected", Toast.LENGTH_SHORT).show();
             try{
               ndef.connect();
               ndef.writeNdefMessage(WriteActivity.nfc_payload);
@@ -99,8 +98,7 @@ public class WriteNFCActivity extends Activity {
             } else {
               NdefFormatable format = NdefFormatable.get(tag);
               if (format != null) {
-               //Toast.makeText(getApplicationContext(), "Blank card", Toast.LENGTH_SHORT).show();
-               try{  
+              try{  
                 format.connect();
                 format.format(WriteActivity.nfc_payload);
                 format.close();

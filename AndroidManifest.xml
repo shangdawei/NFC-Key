@@ -10,7 +10,6 @@
 	<uses-permission android:name="android.permission.NFC"/>
     
     <application
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo">
@@ -57,13 +56,13 @@
 	        <intent-filter>
 	        </intent-filter>
 	    </activity>
-	    <activity android:name="DonateActivity" android:icon="@drawable/ic_launcher">
+	    <activity android:name="DonateActivity" android:icon="@drawable/ic_launcher" android:screenOrientation="nosensor">
 	        <intent-filter></intent-filter>
 	    </activity>
-	    <activity android:name="CloneReadActivity">
+	    <activity android:name="CloneReadActivity" android:screenOrientation="nosensor" android:icon="@drawable/ic_launcher">
 	        <intent-filter></intent-filter>
 	    </activity>
-	    <activity android:name="CloneWriteNFCActivity">
+	    <activity android:name="CloneWriteNFCActivity" android:screenOrientation="nosensor" android:icon="@drawable/ic_launcher">
 	        <intent-filter></intent-filter>
 	    </activity>
 	    		    

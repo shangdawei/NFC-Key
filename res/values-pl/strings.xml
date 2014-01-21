@@ -30,5 +30,9 @@
 	<string name="IfYouLike">Jeśli ta aplikacja jest Ci pomocna, wesprzyj twórcę.</string>
 	<string name="ReadNFCTag">Odczytaj tag NFC</string>
 	<string name="CloneNFCTag">Sklonuj tag NFC</string>
-	
+	<string name="Autorun">Autostart</string>
+	<string name="AutorunDisabled">Autostart dla tagu NFC wyłączony</string>
+	<string name="HiddenKey">klucz NFC będzie ukryty</string>
+	<string name="AutorunEnabed">Autostart dla tagu NFC włączony</string>
+	<string name="DatabaseMissing">Brak wewnętrznej bazy danych programu. Zaprogramuj NFC tag raz jeszcze</string>
 </resources>

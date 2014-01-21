@@ -33,4 +33,9 @@
 	<string name="IfYouLike">If this app is useful for you, please consider making a donation.</string>
 	<string name="ReadNFCTag">Read NFC tag</string>
 	<string name="CloneNFCTag">Clone NFC tag</string>
+	<string name="Autorun">Autorun</string>
+	<string name="AutorunDisabled">Autorun for NFC tag is disabled</string>
+	<string name="HiddenKey">NFC key is hidden</string>
+	<string name="AutorunEnabed">Autorun for NFC tag is enabled</string>
+	<string name="DatabaseMissing">Internal database file is missing. Please write NFC tag again.</string>
 </resources>

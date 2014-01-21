@@ -80,12 +80,10 @@ public class CloneWriteNFCActivity extends Activity {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             int success = 0;
-            //Toast.makeText(getApplicationContext(), "Writing...", Toast.LENGTH_SHORT).show();
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Ndef ndef = Ndef.get(tag);
             if (ndef != null) {
-            //Toast.makeText(getApplicationContext(), "NDEF Detected", Toast.LENGTH_SHORT).show();
-            try{
+             try{
               ndef.connect();
               ndef.writeNdefMessage(WriteActivity.nfc_payload);
               ndef.close();
@@ -106,7 +104,6 @@ public class CloneWriteNFCActivity extends Activity {
             } else {
               NdefFormatable format = NdefFormatable.get(tag);
               if (format != null) {
-               //Toast.makeText(getApplicationContext(), "Blank card", Toast.LENGTH_SHORT).show();
                try{  
                 format.connect();
                 format.format(WriteActivity.nfc_payload);
@@ -127,13 +124,11 @@ public class CloneWriteNFCActivity extends Activity {
               }
         
             } 
-            //pb1.setVisibility(View.INVISIBLE);
-            //setResult(success);
+
             if (success == 1) {
             	Toast.makeText(getApplicationContext(), getString(R.string.Success), Toast.LENGTH_SHORT).show();
             } else {Toast.makeText(getApplicationContext(), getString(R.string.Failed), Toast.LENGTH_SHORT).show();}
-            
-            //finish();
+         
         }
         
     }

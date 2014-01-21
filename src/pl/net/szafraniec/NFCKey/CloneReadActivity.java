@@ -73,7 +73,6 @@ public class CloneReadActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent)
     {
-    	//Toast.makeText(getApplicationContext(), "Odczyt", Toast.LENGTH_SHORT).show();
 		byte[] payload = null;
     	String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
@@ -117,7 +116,6 @@ public class CloneReadActivity extends Activity {
             }
 			ProgressBar pb1 = (ProgressBar) findViewById(R.id.progressBar1);
 			pb1.setVisibility(View.INVISIBLE);
-			//Toast.makeText(getApplicationContext(), "Daj kartê docelow¹", Toast.LENGTH_SHORT).show();
             Intent intent2 = new Intent(getApplicationContext(), CloneWriteNFCActivity.class);
             startActivity(intent2);
             finish();

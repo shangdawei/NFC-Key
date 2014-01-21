@@ -172,7 +172,7 @@
             android:layout_below="@+id/password_radiobuttons"
             android:layout_marginTop="29dp"
             android:checked="true"
-            android:text="Autostart" />
+            android:text="@string/Autorun" />
 
     </RelativeLayout>
 

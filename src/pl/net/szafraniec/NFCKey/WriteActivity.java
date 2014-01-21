@@ -92,11 +92,11 @@ public class WriteActivity extends Activity {
 		        if (!isChecked) {
 		            // The toggle is enabled
 		        	szyfr = true;
-		        	Toast.makeText(getApplicationContext(), "Autostart dla tagu NFC wy³¹czony", Toast.LENGTH_SHORT).show();
-		        	Toast.makeText(getApplicationContext(), "klucz NFC bêdzie ukryty", Toast.LENGTH_SHORT).show();
+		        	Toast.makeText(getApplicationContext(), getString(R.string.AutorunDisabled), Toast.LENGTH_SHORT).show();
+		        	Toast.makeText(getApplicationContext(), getString(R.string.HiddenKey), Toast.LENGTH_SHORT).show();
 		        } else {
 		            // The toggle is disabled
-		        	Toast.makeText(getApplicationContext(), "Autostart dla tagu NFC w³¹czony", Toast.LENGTH_SHORT).show();
+		        	Toast.makeText(getApplicationContext(), getString(R.string.AutorunEnabed), Toast.LENGTH_SHORT).show();
 		        	szyfr = false;
 		        }
 		    }

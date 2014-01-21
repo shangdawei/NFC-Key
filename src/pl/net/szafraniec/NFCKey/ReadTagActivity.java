@@ -115,7 +115,7 @@ public class ReadTagActivity extends Activity {
 		} catch (RuntimeException r) {
             r.printStackTrace();
  
-        }} else {Toast.makeText(getApplicationContext(), "Database is:"+dbinfo.database, Toast.LENGTH_SHORT).show();}
+        }} else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
 		finish();
 		return true;
 
