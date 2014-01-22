@@ -21,6 +21,7 @@
 	<string name="PlaceCloneTag">Umieść nowy tag, na który chcesz sklonować klucz.</string>
 	<string name="Exit">Zakończ</string>
 	<string name="LaunchingKeePass">Uruchamianie KeePassDroid&#8230;</string>
+	<string name="LaunchingKeePass2">Uruchamianie KeePass2Android&#8230;</string>
 	<string name="missing">[BRAK]</string>
 	<string name="About">O programie</string>
 	<string name="Donate">Wspomóż</string>

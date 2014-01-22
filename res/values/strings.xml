@@ -38,4 +38,5 @@
 	<string name="HiddenKey">NFC key is hidden</string>
 	<string name="AutorunEnabed">Autorun for NFC tag is enabled</string>
 	<string name="DatabaseMissing">Internal database file is missing. Please write NFC tag again.</string>
+	<string name="LaunchingKeePass2">Launching KeePass2Android&#8230;</string>
 </resources>
