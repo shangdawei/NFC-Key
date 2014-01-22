@@ -1,5 +1,9 @@
 Changelog of NFCKey:
 
+Version 1.03:
+*Updated license,
+*Updated AboutDialog
+
 Version 1.02:
 *New feature: clone NFC tag
 *Updated translations
