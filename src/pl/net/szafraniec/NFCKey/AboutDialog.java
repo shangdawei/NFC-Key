@@ -41,7 +41,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import pl.net.szafraniec.NFCKey.R;
 import android.app.Dialog;
 import android.content.Context;
@@ -71,7 +70,7 @@ public class AboutDialog extends Dialog{
 		tv.setText(Html.fromHtml(readRawTextFile(R.raw.legal)));
 		Linkify.addLinks(tv, Linkify.ALL);
 		tv = (TextView)findViewById(R.id.info_text);
-		tv.setText(Html.fromHtml(readRawTextFile(R.raw.info)));
+		tv.setText(Html.fromHtml(readRawTextFile(R.raw.info)+MainActivity.version));
 		tv.setLinkTextColor(Color.WHITE);
 		Linkify.addLinks(tv, Linkify.ALL);
 		

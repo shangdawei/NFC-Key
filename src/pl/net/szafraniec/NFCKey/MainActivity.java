@@ -48,14 +48,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import pl.net.szafraniec.NFCKey.R;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 public class MainActivity extends Activity {
 	final public int ABOUT = 0;
+	public static String version;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		try {
+		version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		Button x = (Button) findViewById(R.id.quit);
         x.setOnClickListener(new View.OnClickListener() {
