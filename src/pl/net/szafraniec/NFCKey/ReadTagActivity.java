@@ -158,7 +158,10 @@ public class ReadTagActivity extends Activity {
 			try {
 				startActivity(intent);
 			} catch (RuntimeException rr) {
-			rr.printStackTrace();}
+			rr.printStackTrace();
+			Toast.makeText(getApplicationContext(), getString(R.string.CantFindKeePassDroid), Toast.LENGTH_LONG).show();
+			finish();
+			}
  
         }/*}*/ else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
 		finish();

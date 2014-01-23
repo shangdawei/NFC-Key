@@ -29,6 +29,7 @@
 	<string name="DonateViaPayPal">Wspomóż przez PayPal:</string>	
 	<string name="SendABitcoin">Wyślij Bitcoin:</string>
 	<string name="IfYouLike">Jeśli ta aplikacja jest Ci pomocna, wesprzyj twórcę.</string>
+	<string name="CantFindKeePassDroid">Nie można uruchomić KeePassDroid. Proszę go zainstalować.</string>
 	<string name="ReadNFCTag">Odczytaj tag NFC</string>
 	<string name="CloneNFCTag">Sklonuj tag NFC</string>
 	<string name="Autorun">Autostart</string>
