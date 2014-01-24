@@ -1,3 +1,4 @@
+Changelog https://raw2.github.com/mateusz-szafraniec/NFC-Key/master/CHANGELOG.txt<br>
 Source code https://github.com/mateusz-szafraniec/NFC-Key<br>
 Based on conception and code KeePassNFC by Nicholas FitzRoy-Dale https://github.com/nfd/KeePassNFC<br>
 License https://raw2.github.com/mateusz-szafraniec/NFC-Key/master/LICENSE.txt<br>
