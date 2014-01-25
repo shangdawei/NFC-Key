@@ -1,5 +1,8 @@
 Changelog of NFCKey:
 
+Version 1.04:
+*NFC adapter checking
+
 Version 1.03:
 *Updated license,
 *Updated AboutDialog
