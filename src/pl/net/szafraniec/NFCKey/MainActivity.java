@@ -41,13 +41,16 @@ import pl.net.szafraniec.NFCKey.AboutDialog;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import pl.net.szafraniec.NFCKey.R;
+import android.provider.Settings;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 public class MainActivity extends Activity {
@@ -63,7 +66,15 @@ public class MainActivity extends Activity {
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+		NfcAdapter Nfc = NfcAdapter.getDefaultAdapter(this);
+		if (Nfc == null) {
+			Toast.makeText(getApplicationContext(), getString(R.string.CantFindNFCAdapter), Toast.LENGTH_LONG).show(); 
+			finish();
+		}
+		if (Nfc.isEnabled() != true) {
+			Toast.makeText(getApplicationContext(), getString(R.string.EnabeNFCFirst), Toast.LENGTH_LONG).show();
+			startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+		}
 		Button x = (Button) findViewById(R.id.quit);
         x.setOnClickListener(new View.OnClickListener() {
             @Override

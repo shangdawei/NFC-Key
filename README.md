@@ -5,7 +5,7 @@ You can use any NFC Tag, including very popular Mifare Ultralight or Sony SmartT
 
 Security:
 
-	NFC tag stores only random numbers, and the password is encrypted with those numbers, stored in protected 
+	NFC tag stores only random numbers, and the password is encrypted with those numbers (AES-128 algorithm), stored in protected 
 	Android device memory. An attacker would have to scan(copy) your NFC tag and either steal and root your Android
 	device 	to get your password. If you suspect that your NFC tag has been read, you can use NFC Key again to 
 	re-write it with new random values, rendering the previous information useless.

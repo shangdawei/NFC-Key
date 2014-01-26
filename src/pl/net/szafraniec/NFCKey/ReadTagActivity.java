@@ -46,6 +46,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -71,31 +72,26 @@ public class ReadTagActivity extends Activity {
     }		
     private void nfc_enable()
     {
-        // Register for any NFC event (only while we're in the foreground)
-
+    	// Register for any NFC event (only while we're in the foreground)
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         PendingIntent pending_intent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
         adapter.enableForegroundDispatch(this, pending_intent, null, null);
     }
 
     private void nfc_disable()
     {
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-
         adapter.disableForegroundDispatch(this);
     }
     @Override
     protected void onResume() {
         super.onResume();
-
         nfc_enable();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         nfc_disable();
     }
 
@@ -112,10 +108,10 @@ public class ReadTagActivity extends Activity {
 	            for (int j = 0; j < rawMsgs.length; j++) {
 	                msgs[j] = (NdefMessage) rawMsgs[j];
 	                NdefRecord record = msgs[j].getRecords()[0];
-	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA /* || record.getTnf() == NdefRecord.TNF_WELL_KNOWN*/)
+	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA)
 	                {
 	                	String mimetype = record.toMimeType();
-	                	if (mimetype.equals(Settings.nfc_mime_type) || mimetype.equals(Settings.nfc_mime_type_hidden)) /*|| (record.getTnf() == NdefRecord.TNF_WELL_KNOWN) */ {
+	                	if (mimetype.equals(Settings.nfc_mime_type) || mimetype.equals(Settings.nfc_mime_type_hidden)){
 		                	payload = record.getPayload();
 	                	}
 	                }
@@ -125,15 +121,20 @@ public class ReadTagActivity extends Activity {
 		
 		if (payload != null) {
 			load_from_nfc(payload);
-		}
+			}
 	}
 	
 	private boolean load_from_nfc(byte[] payload)
 	{
-		// Ignore first two bytes of payload (it's a filename index which is unused)
-		DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload, 2);
-		
-		return startKeepassActivity(dbinfo);
+		try {
+			       DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
+			       return startKeepassActivity(dbinfo);
+			     } catch (CryptoFailedException e) {
+			    	 Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
+			    	 Toast.makeText(this, getString(R.string.DecryptError), Toast.LENGTH_LONG).show();
+			    	 finish();
+			       return false;
+			     }
 	}
 	
 	private boolean startKeepassActivity(DatabaseInfo dbinfo)

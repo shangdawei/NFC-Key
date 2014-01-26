@@ -42,6 +42,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
 import android.content.Context;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.Cipher;
+import java.nio.ByteOrder;
+import java.nio.ByteBuffer;
+import android.util.Log;
 
 /* Represents the on-disk database info including encrypted password */
 
@@ -50,6 +56,8 @@ public class DatabaseInfo {
 	public String keyfile_filename;
 	public String password;
 	public int config;
+	private static final String CIPHER = "AES/CTR/NoPadding";
+	public static final String LOG_TAG = "nfckey";
 	
 	public DatabaseInfo(String database, String keyfile_filename, String password, int config)
 	{
@@ -59,66 +67,119 @@ public class DatabaseInfo {
 		this.config = config;
 	}
 	
-	private byte[] encrypt_password(byte[] encryption_bytes, int offset)
+	private static Cipher get_cipher(byte[] key, int mode) throws CryptoFailedException
+	   {
+	     try {
+	       SecretKeySpec sks = new SecretKeySpec(key, "AES");
+	       Cipher cipher = Cipher.getInstance(CIPHER);
+	       // No IV as key is never re-used
+	       byte[] iv_bytes = new byte[cipher.getBlockSize()]; // zeroes
+	       IvParameterSpec iv = new IvParameterSpec(iv_bytes);
+	       cipher.init(mode, sks, iv);
+	       return cipher;
+	     } catch (java.security.NoSuchAlgorithmException e) {
+	       Log.d(LOG_TAG, "NoSuchAlgorithm");
+	       throw new CryptoFailedException();
+	     } catch (java.security.InvalidKeyException e) {
+	       Log.d(LOG_TAG, "InvalidKey");
+	       throw new CryptoFailedException();
+	     } catch (javax.crypto.NoSuchPaddingException e) {
+	       Log.d(LOG_TAG, "NoSuchPadding");
+	       throw new CryptoFailedException();
+	     } catch (java.security.InvalidAlgorithmParameterException e) {
+	       Log.d(LOG_TAG, "InvalidAlgorithmParameter");
+	       throw new CryptoFailedException();
+	     }
+	   }
+	 
+	   private byte[] encrypt_password(byte[] key) throws CryptoFailedException
+
 	{
 		int i;
-		int crypted_idx = 0;
-		byte[] crypted_password = new byte[Settings.password_length];
+	    int idx = 0;
+	    byte[] padded_password = new byte[Settings.max_password_length];
 		byte[] plaintext_password = password.getBytes();
 		SecureRandom rng = new SecureRandom();		
-		
 		// Password length...
-		crypted_password[crypted_idx ++] = (byte)password.length();
+		padded_password[idx ++] = (byte)password.length();
 		// ... and password itself...
 		for (i = 0; i < plaintext_password.length; i++) 
-			crypted_password[crypted_idx ++] = plaintext_password[i];
+			padded_password[idx ++] = plaintext_password[i];
 		// ... and random bytes to pad.
-		while (crypted_idx < crypted_password.length)
-			crypted_password[crypted_idx++] = (byte)rng.nextInt();
-		
+		while (idx < padded_password.length)
+			padded_password[idx++] = (byte)rng.nextInt();		
 		// Encrypt everything
-		for (i = 0; i < Settings.password_length; i++)
-			crypted_password[i] ^= encryption_bytes[i + offset];
-		
-		return crypted_password;
+		Cipher cipher = get_cipher(key, Cipher.ENCRYPT_MODE);
+		     try {
+		       return cipher.doFinal(padded_password);
+		     } catch (javax.crypto.IllegalBlockSizeException e) {
+		       Log.d(LOG_TAG, "IllegalBlockSize");
+		       throw new CryptoFailedException();
+		     } catch (javax.crypto.BadPaddingException e) {
+		       Log.d(LOG_TAG, "BadPadding");
+		       throw new CryptoFailedException();
+		     }
 	}
 	
-	private static String decrypt_password(byte[] crypted_password, byte[] encryption_bytes, int offset)
+	private static String decrypt_password(byte[] crypted_password, byte[] key) throws CryptoFailedException	   
 	{
-		int i, length;
-
-		for (i = 0; i < Settings.password_length; i++)
-			crypted_password[i] ^= encryption_bytes[i + offset];
-		
-		length = (int)crypted_password[0];
-		return new String(crypted_password, 1, length);
+		byte[] decrypted;
+		Cipher cipher = get_cipher(key, Cipher.DECRYPT_MODE);
+		try {
+			       decrypted = cipher.doFinal(crypted_password);
+			     } catch (javax.crypto.IllegalBlockSizeException e) {
+			       Log.d(LOG_TAG, "IllegalBlockSize");
+			       throw new CryptoFailedException();
+			     } catch (javax.crypto.BadPaddingException e) {
+			       Log.d(LOG_TAG, "BadPadding");
+			       throw new CryptoFailedException();
+			     }
+			 
+			     int length = (int)decrypted[0];
+			     if ((length <0) || (length >Settings.max_password_length )) {
+			    	 Log.d(LOG_TAG, "BadPasswordLength:"+length);
+			    	 throw new CryptoFailedException();}
+			     return new String(decrypted, 1, length);
 	}
 	
-	private byte[] to_short(int i)
+	private byte[] to_short(short i)
 	{
 		byte[] bytes = new byte[2];
-		bytes[0] = (byte)((i & 0xff00) >> 8);
-		bytes[1] = (byte)(i & 0xff);
+		short[] shorts = {i};
+		ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(shorts);
 		return bytes;
 	}
-	
-	public boolean serialise(Context ctx, byte[] random_bytes)
+	private byte[] to_short(int i)
+	   {
+	     return to_short((short)i);
+	   }
+	   
+	private static short read_short(FileInputStream fis) throws IOException
+	   {
+	     byte[] bytes = new byte[2];
+	     short[] shorts = new short[1];
+	     fis.read(bytes, 0, 2);
+	     ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+	     return shorts[0];
+	   }
+
+	public boolean serialise(Context ctx, byte[] key) throws CryptoFailedException
 	{
-		byte encrypted_config;
-		byte[] encrypted_password;
-		
-		encrypted_config = (byte)(((byte)config) ^ random_bytes[0]);
-		encrypted_password = encrypt_password(random_bytes, 1);
-				
+	/* Encrypt the data and store it on the Android device.
+	 *
+	 * The encryption key is stored on the NFC tag.
+	 */
+		byte[] encrypted_password = encrypt_password(key);			
 		FileOutputStream nfcinfo;
 		try {
 			nfcinfo = ctx.openFileOutput(Settings.nfcinfo_filename_template + "_00.txt", Context.MODE_PRIVATE);
 		} catch (FileNotFoundException e) {
+		    Log.w(LOG_TAG, "DatabaseNotFound");
 			e.printStackTrace();
 			return false;
 		}
 		try {
-			nfcinfo.write(encrypted_config);
+			nfcinfo.write(config);
 			nfcinfo.write(to_short(database.length()));
 			nfcinfo.write(database.getBytes());
 			nfcinfo.write(to_short(keyfile_filename.length()));
@@ -127,6 +188,7 @@ public class DatabaseInfo {
 			nfcinfo.write(encrypted_password);
 			nfcinfo.close();
 		} catch (IOException e) {
+		    Log.w(LOG_TAG, "IOException while writing database file");
 			e.printStackTrace();
 			return false;
 		}
@@ -134,54 +196,39 @@ public class DatabaseInfo {
 		return true;
 	}
 	
-	public static DatabaseInfo deserialise(Context ctx, byte[] random_bytes, int offset)
+	public static DatabaseInfo deserialise(Context ctx, byte[] key) throws CryptoFailedException
 	{
 		int config = Settings.CONFIG_NOTHING;
 		String database = null, keyfile = null, password;
 		byte[] buffer = new byte[1024];
-		byte[] encrypted_password = new byte[Settings.password_length];
-		
+		byte[] encrypted_password = new byte[Settings.max_password_length];		
 		FileInputStream nfcinfo = null;
-		
 		try {
 			nfcinfo = ctx.openFileInput(Settings.nfcinfo_filename_template + "_00.txt");
 		} catch (FileNotFoundException e) {
+		    Log.w(LOG_TAG, "DatabaseNotFound");
 			e.printStackTrace();
-			//return null;
 			return new DatabaseInfo(null, null, null, 0);
 		}
 		
 		try {
-			config = (((byte)nfcinfo.read()) ^ random_bytes[0 + offset]);
+			config = nfcinfo.read();
 			database = read_string(nfcinfo, buffer);
 			keyfile = read_string(nfcinfo, buffer);
 			read_bytes(nfcinfo, encrypted_password);
 		} catch (Exception e) {
+		    Log.w(LOG_TAG, "Exception:nfcinfo.read");
 			e.printStackTrace();
 			return new DatabaseInfo(null, null, null, 0);
-			//return null;
 		}
-		
-		password = decrypt_password(encrypted_password, random_bytes, 1 + offset);
+		password = decrypt_password(encrypted_password, key);
 				
 		return new DatabaseInfo(database, keyfile, password, config);
 	}
 	
-	private static int read_short(FileInputStream fis, byte[] buffer) throws IOException
-	{
-		int i;
-		
-		fis.read(buffer, 0, 2);
-		i = (int)(buffer[0] << 8);
-		i |= (int)(buffer[1]);
-		
-		return i;
-	}
-	
 	private static int read_bytes(FileInputStream fis, byte[] buffer) throws IOException
 	{
-		int length = read_short(fis, buffer);
-		
+		int length = read_short(fis);
 		fis.read(buffer, 0, length);
 		return length;		
 	}

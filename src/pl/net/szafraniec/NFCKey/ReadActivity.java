@@ -45,6 +45,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.widget.Toast;
 import pl.net.szafraniec.NFCKey.R;
 
@@ -53,9 +54,7 @@ public class ReadActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
 		byte[] payload = null;
-		
 		Intent intent = getIntent();
 		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
 	        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -82,10 +81,15 @@ public class ReadActivity extends Activity {
 	
 	private boolean load_from_nfc(byte[] payload)
 	{
-		// Ignore first two bytes of payload (it's a filename index which is unused)
-		DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload, 2);
-		
-		return startKeepassActivity(dbinfo);
+		try {
+			       DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
+			       return startKeepassActivity(dbinfo);
+			     } catch (CryptoFailedException e) {
+			    	 Toast.makeText(this, getString(R.string.DecryptError), Toast.LENGTH_LONG).show();
+			    	 Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
+			    	 finish();
+			       return false;
+			     }
 	}
 	
 	private boolean startKeepassActivity(DatabaseInfo dbinfo)
