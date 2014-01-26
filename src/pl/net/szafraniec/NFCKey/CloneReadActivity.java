@@ -50,6 +50,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -82,27 +83,23 @@ public class CloneReadActivity extends Activity {
 
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         PendingIntent pending_intent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
         adapter.enableForegroundDispatch(this, pending_intent, null, null);
     }
 
     private void nfc_disable()
     {
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-
         adapter.disableForegroundDispatch(this);
     }
     @Override
     protected void onResume() {
         super.onResume();
-
         nfc_enable();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         nfc_disable();
     }
 
@@ -119,10 +116,10 @@ public class CloneReadActivity extends Activity {
 	            for (int j = 0; j < rawMsgs.length; j++) {
 	                msgs[j] = (NdefMessage) rawMsgs[j];
 	                NdefRecord record = msgs[j].getRecords()[0];
-	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA /* || record.getTnf() == NdefRecord.TNF_WELL_KNOWN*/)
+	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA)
 	                {
 	                	String mimetype = record.toMimeType();
-	                	if (mimetype.equals(Settings.nfc_mime_type) || mimetype.equals(Settings.nfc_mime_type_hidden)) /*|| (record.getTnf() == NdefRecord.TNF_WELL_KNOWN) */ {
+	                	if (mimetype.equals(Settings.nfc_mime_type) || mimetype.equals(Settings.nfc_mime_type_hidden)){
 		                	payload = record.getPayload();
 	                	}
 	                }
@@ -140,14 +137,17 @@ public class CloneReadActivity extends Activity {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "IOExceptionCloneRead");
                 Toast.makeText(getApplicationContext(), "IOExceptionCloneRead", Toast.LENGTH_SHORT).show();
           
             } catch (NullPointerException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "NullPointerCloneRead");
                 Toast.makeText(getApplicationContext(), "NullPointerCloneRead", Toast.LENGTH_SHORT).show();
              
             } catch (FormatException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionCloneRead");
                 Toast.makeText(getApplicationContext(), "FormatExceptionCloneRead", Toast.LENGTH_SHORT).show();
             }
 			ProgressBar pb1 = (ProgressBar) findViewById(R.id.progressBar1);

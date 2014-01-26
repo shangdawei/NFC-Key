@@ -39,4 +39,6 @@
 	<string name="DatabaseMissing">Brak wewnętrznej bazy danych programu. Zaprogramuj NFC tag raz jeszcze</string>
 	<string name="CantFindNFCAdapter">Brak adaptera NFC. Najprawdopodobniej Twój telefon go nie posiada&#8230;</string>
 	<string name="EnabeNFCFirst">Adapter NFC jest wyłączony. Proszę go włączyć.</string>
+	<string name="DecryptError">Błąd podczas deszyfrowania. Zaprogramuj klucz jeszcze raz.</string>
+	<string name="EncryptError">Błąd podczas szyfrowania danych :(</string>
 </resources>

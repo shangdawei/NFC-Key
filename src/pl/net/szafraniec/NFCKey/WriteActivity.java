@@ -48,6 +48,7 @@ import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -77,9 +78,8 @@ public class WriteActivity extends Activity {
     private static final int REQUEST_NFC_WRITE = 2;
 	private File keyfile = null;
 	private File database = null;
-	private byte[] random_bytes = new byte[Settings.random_bytes_length];
+	private byte[] random_bytes = new byte[Settings.key_length];
 	public static NdefMessage nfc_payload;
-	
 	private int keyfile_option = KEYFILE_NO;
 	private int password_option = PASSWORD_YES;
 	public Boolean szyfr;
@@ -110,7 +110,7 @@ public class WriteActivity extends Activity {
 	    if (keyfile == null)
 	    	sis.putString("keyfile", "");
 	    else
-	    	sis.putString("keyfile", keyfile.getAbsolutePath());
+	    sis.putString("keyfile", keyfile.getAbsolutePath());
 	    sis.putInt("keyfile_option", keyfile_option);
 	    sis.putInt("password_option", password_option);
 	}
@@ -195,6 +195,7 @@ public class WriteActivity extends Activity {
 			    try {
 			        startActivityForResult(intent, REQUEST_KEYFILE);
 			    } catch (ActivityNotFoundException e) {
+			    	Log.d(DatabaseInfo.LOG_TAG, "ActivityNotFoundException");
 			    	e.printStackTrace();
 			    }
 			}
@@ -210,6 +211,7 @@ public class WriteActivity extends Activity {
 			    try {
 			        startActivityForResult(intent, REQUEST_DATABASE);
 			    } catch (ActivityNotFoundException e) {
+			    	Log.d(DatabaseInfo.LOG_TAG, "ActivityNotFoundException");
 			    	e.printStackTrace();
 			    }				
 			}
@@ -261,23 +263,13 @@ public class WriteActivity extends Activity {
 	{
 		SecureRandom rng = new SecureRandom();		
 		rng.nextBytes(random_bytes);
-
-		byte[] nfcinfo_index = new byte[Settings.index_length];
-		nfcinfo_index[0] = '0';
-		nfcinfo_index[1] = '0';
-		
-		assert(Settings.index_length + Settings.password_length == Settings.nfc_length);
-		byte[] nfc_all = new byte[Settings.nfc_length];
-		System.arraycopy(nfcinfo_index, 0, nfc_all, 0, Settings.index_length);
-		System.arraycopy(random_bytes, 0, nfc_all, Settings.index_length, Settings.random_bytes_length);
-		
 		// Create the NFC version of this data
 		if (szyfr == true) { 
 		nfc_mime_type_tmp = Settings.nfc_mime_type_hidden;
 		} else {
 		nfc_mime_type_tmp = Settings.nfc_mime_type;
 		}
-		NdefRecord ndef_records = NdefRecord.createMime(nfc_mime_type_tmp, nfc_all);
+		NdefRecord ndef_records = NdefRecord.createMime(nfc_mime_type_tmp, random_bytes);
 		nfc_payload = new NdefMessage(ndef_records);
 	}
 	
@@ -287,12 +279,7 @@ public class WriteActivity extends Activity {
 		int config;
 		String keyfile_filename;
 		String password;
-		
-/*		if (database == null) {
-			Toast.makeText(getApplicationContext(), "Please select a database first", Toast.LENGTH_SHORT).show();
-			return false;
-		}
-*/		
+
 		if (password_option == PASSWORD_ASK)
 			config = Settings.CONFIG_PASSWORD_ASK;
 		else
@@ -315,7 +302,13 @@ public class WriteActivity extends Activity {
 				
 		dbinfo = new DatabaseInfo(database.getAbsolutePath(), keyfile_filename, password, config);
 		
-		return dbinfo.serialise(this, random_bytes);
+		try {
+			       return dbinfo.serialise(this, random_bytes);
+			     } catch (CryptoFailedException e) {
+			    	 Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-encrypt");
+			    	 Toast.makeText(getApplicationContext(), getString(R.string.EncryptError), Toast.LENGTH_SHORT).show();
+			       return false;
+			     }
 	}
 
 	private void updateRadioViews()

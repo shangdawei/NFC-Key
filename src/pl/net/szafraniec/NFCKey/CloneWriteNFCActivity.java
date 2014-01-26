@@ -48,6 +48,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -55,8 +56,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CloneWriteNFCActivity extends Activity {
-//private static final String LOG_TAG = "WriteNFCActivity";
-
 
     protected void onCreate(Bundle sis) {
         super.onCreate(sis);
@@ -79,31 +78,26 @@ public class CloneWriteNFCActivity extends Activity {
     private void nfc_enable()
     {
         // Register for any NFC event (only while we're in the foreground)
-
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         PendingIntent pending_intent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
         adapter.enableForegroundDispatch(this, pending_intent, null, null);
     }
 
     private void nfc_disable()
     {
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-
         adapter.disableForegroundDispatch(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         nfc_enable();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         nfc_disable();
     }
 
@@ -126,15 +120,18 @@ public class CloneWriteNFCActivity extends Activity {
               success = 1;
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "IOExceptionWrite", Toast.LENGTH_SHORT).show();
+                Log.e(DatabaseInfo.LOG_TAG, "IOExceptionClonenWrite");
+                Toast.makeText(getApplicationContext(), "IOExceptionClonenWrite", Toast.LENGTH_SHORT).show();
           
             } catch (NullPointerException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "NullPointerWrite", Toast.LENGTH_SHORT).show();
+                Log.e(DatabaseInfo.LOG_TAG, "NullPointerCloneWrite");
+                Toast.makeText(getApplicationContext(), "NullPointerCloneWrite", Toast.LENGTH_SHORT).show();
              
             } catch (FormatException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "FormatExceptionWrite", Toast.LENGTH_SHORT).show();
+                Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionCloneWrite");
+                Toast.makeText(getApplicationContext(), "FormatExceptionCloneWrite", Toast.LENGTH_SHORT).show();
             }
  
             } else {
@@ -147,14 +144,17 @@ public class CloneWriteNFCActivity extends Activity {
                 success = 1;
               } catch (IOException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "IOExceptionFormat");
                   Toast.makeText(getApplicationContext(), "IOExceptionFormat", Toast.LENGTH_SHORT).show();
             
               } catch (NullPointerException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "NullPointerFormat");
                   Toast.makeText(getApplicationContext(), "NullPointerFormat", Toast.LENGTH_SHORT).show();
                
               } catch (FormatException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionFormat");
                   Toast.makeText(getApplicationContext(), "FormatExceptionFormat", Toast.LENGTH_SHORT).show();
               	}
               }

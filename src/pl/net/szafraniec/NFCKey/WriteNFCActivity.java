@@ -48,13 +48,12 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class WriteNFCActivity extends Activity {
-//private static final String LOG_TAG = "WriteNFCActivity";
-
 
     protected void onCreate(Bundle sis) {
         super.onCreate(sis);
@@ -77,28 +76,24 @@ public class WriteNFCActivity extends Activity {
 
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         PendingIntent pending_intent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
         adapter.enableForegroundDispatch(this, pending_intent, null, null);
     }
 
     private void nfc_disable()
     {
         NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-
         adapter.disableForegroundDispatch(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         nfc_enable();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         nfc_disable();
     }
 
@@ -109,7 +104,6 @@ public class WriteNFCActivity extends Activity {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             int success = 0;
-
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Ndef ndef = Ndef.get(tag);
             if (ndef != null) {
@@ -120,14 +114,17 @@ public class WriteNFCActivity extends Activity {
               success = 1;
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "IOExceptionWrite");
                 Toast.makeText(getApplicationContext(), "IOExceptionWrite", Toast.LENGTH_SHORT).show();
           
             } catch (NullPointerException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "NullPointerWrite");
                 Toast.makeText(getApplicationContext(), "NullPointerWrite", Toast.LENGTH_SHORT).show();
              
             } catch (FormatException e) {
                 e.printStackTrace();
+                Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionWrite");
                 Toast.makeText(getApplicationContext(), "FormatExceptionWrite", Toast.LENGTH_SHORT).show();
             }
  
@@ -141,14 +138,17 @@ public class WriteNFCActivity extends Activity {
                 success = 1;
               } catch (IOException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "IOExceptionFormat");
                   Toast.makeText(getApplicationContext(), "IOExceptionFormat", Toast.LENGTH_SHORT).show();
             
               } catch (NullPointerException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "NullPointerFormat");
                   Toast.makeText(getApplicationContext(), "NullPointerFormat", Toast.LENGTH_SHORT).show();
                
               } catch (FormatException e) {
                   e.printStackTrace();
+                  Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionFormat");
                   Toast.makeText(getApplicationContext(), "FormatExceptionFormat", Toast.LENGTH_SHORT).show();
               	}
               }} 

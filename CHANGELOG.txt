@@ -1,5 +1,8 @@
 Changelog of NFCKey:
 
+Version 1.1:
+*AES Encryption
+
 Version 1.04:
 *NFC adapter checking
 

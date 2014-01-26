@@ -75,7 +75,7 @@ public class DonateActivity extends Activity {
                 //return false;
             }
         });
-	    // TODO Auto-generated method stub
+
 	}
 
 }
