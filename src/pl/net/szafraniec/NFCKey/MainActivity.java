@@ -71,9 +71,11 @@ public class MainActivity extends Activity {
 			Toast.makeText(getApplicationContext(), getString(R.string.CantFindNFCAdapter), Toast.LENGTH_LONG).show(); 
 			finish();
 		}
-		if (Nfc.isEnabled() != true) {
-			Toast.makeText(getApplicationContext(), getString(R.string.EnabeNFCFirst), Toast.LENGTH_LONG).show();
-			startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+		if (Nfc != null) {
+			if (Nfc.isEnabled() != true) {
+				Toast.makeText(getApplicationContext(), getString(R.string.EnabeNFCFirst), Toast.LENGTH_LONG).show();
+				startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+					}
 		}
 		Button x = (Button) findViewById(R.id.quit);
         x.setOnClickListener(new View.OnClickListener() {
