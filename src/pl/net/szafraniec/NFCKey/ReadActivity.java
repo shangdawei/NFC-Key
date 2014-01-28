@@ -96,7 +96,7 @@ public class ReadActivity extends Activity {
 	{
 		if (dbinfo.database != null) {
 		Intent intent = new Intent();
-/*		intent.setComponent(new ComponentName("keepass2android.keepass2android", "keepass2android.PasswordActivity"));
+		intent.setComponent(new ComponentName("keepass2android.keepass2android", "keepass2android.PasswordActivity"));
 		intent.putExtra("fileName", dbinfo.database);
 		intent.putExtra("keyFile", dbinfo.keyfile_filename);
 		intent.putExtra("password", dbinfo.password);
@@ -104,7 +104,7 @@ public class ReadActivity extends Activity {
 		Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeePass2), Toast.LENGTH_SHORT).show();
 		try {
 			startActivity(intent);
-		} catch (RuntimeException r) { */
+		} catch (RuntimeException r) { 
 			intent.setComponent(new ComponentName("com.android.keepass", "com.keepassdroid.PasswordActivity"));
 			intent.putExtra("fileName", dbinfo.database);
 			intent.putExtra("keyFile", dbinfo.keyfile_filename);
@@ -119,7 +119,7 @@ public class ReadActivity extends Activity {
 			finish();
 			}
  
-        }/*}*/ else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
+        }} else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
 		finish();
 		return true;
 

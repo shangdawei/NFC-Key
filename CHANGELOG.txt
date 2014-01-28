@@ -1,6 +1,9 @@
 Changelog of NFCKey:
 
 Version 1.11:
+*KeePass2Droid support
+
+Version 1.11:
 *updated NFC adapter checking
 
 Version 1.1:
