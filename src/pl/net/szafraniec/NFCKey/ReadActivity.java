@@ -66,7 +66,7 @@ public class ReadActivity extends Activity {
 	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA)
 	                {
 	                	String mimetype = record.toMimeType();
-	                	if (mimetype.equals(Settings.nfc_mime_type)) {
+	                	if (mimetype.equals(NFCKEYSettings.nfc_mime_type)) {
 		                	payload = record.getPayload();
 	                	}
 	                }
@@ -96,33 +96,76 @@ public class ReadActivity extends Activity {
 	{
 		if (dbinfo.database != null) {
 		Intent intent = new Intent();
-		intent.setComponent(new ComponentName("keepass2android.keepass2android", "keepass2android.PasswordActivity"));
-		intent.putExtra("fileName", dbinfo.database);
-		intent.putExtra("keyFile", dbinfo.keyfile_filename);
-		intent.putExtra("password", dbinfo.password);
-		intent.putExtra("launchImmediately", dbinfo.config != Settings.CONFIG_PASSWORD_ASK);
-		Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeePass2), Toast.LENGTH_SHORT).show();
-		try {
-			startActivity(intent);
-		} catch (RuntimeException r) { 
+		boolean app_found = false;
+		if (NFCKEYSettings.Default_APP == 0){
+			Toast.makeText(getApplicationContext(), getString(R.string.SearchingForKeePass), Toast.LENGTH_SHORT).show();
+		}
+		if ((NFCKEYSettings.Default_APP == 1) || (NFCKEYSettings.Default_APP == 0))  {
+			intent.setComponent(new ComponentName("keepass2android.keepass2android", "keepass2android.PasswordActivity"));
+			intent.putExtra("fileName", dbinfo.database);
+			intent.putExtra("keyFile", dbinfo.keyfile_filename);
+			intent.putExtra("password", dbinfo.password);
+			intent.putExtra("launchImmediately", dbinfo.config != NFCKEYSettings.CONFIG_PASSWORD_ASK);
+			if (NFCKEYSettings.Default_APP >0){
+				Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeepass2), Toast.LENGTH_SHORT).show();
+			}
+			try {
+				startActivity(intent);
+				app_found = true;
+			} catch (RuntimeException r) {	
+				app_found = false;
+				r.printStackTrace();
+				if (NFCKEYSettings.Default_APP >0){
+					Toast.makeText(getApplicationContext(), getString(R.string.CantFindKeepass2Android), Toast.LENGTH_LONG).show();
+				}
+			}
+		}
+		if ((NFCKEYSettings.Default_APP == 2) || ((NFCKEYSettings.Default_APP == 0) && !app_found )) {
+			intent.setComponent(new ComponentName("keepass2android.keepass2android_nonet", "keepass2android.PasswordActivity"));
+			intent.putExtra("fileName", dbinfo.database);
+			intent.putExtra("keyFile", dbinfo.keyfile_filename);
+			intent.putExtra("password", dbinfo.password);
+			intent.putExtra("launchImmediately", dbinfo.config != NFCKEYSettings.CONFIG_PASSWORD_ASK);
+			if (NFCKEYSettings.Default_APP >0){
+				Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeepass2offline), Toast.LENGTH_SHORT).show();
+			}
+			try {
+				startActivity(intent);
+				app_found = true;
+			} catch (RuntimeException r) {
+				app_found = false;
+				r.printStackTrace();
+				if (NFCKEYSettings.Default_APP >0){
+					Toast.makeText(getApplicationContext(), getString(R.string.CantFindKeepass2AndroidOffline), Toast.LENGTH_LONG).show();
+				}
+			}
+		}
+		if ((NFCKEYSettings.Default_APP == 3) || ((NFCKEYSettings.Default_APP == 0) && !app_found )) {
 			intent.setComponent(new ComponentName("com.android.keepass", "com.keepassdroid.PasswordActivity"));
 			intent.putExtra("fileName", dbinfo.database);
 			intent.putExtra("keyFile", dbinfo.keyfile_filename);
 			intent.putExtra("password", dbinfo.password);
-			intent.putExtra("launchImmediately", dbinfo.config != Settings.CONFIG_PASSWORD_ASK);
-			Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeePass), Toast.LENGTH_SHORT).show();
+			intent.putExtra("launchImmediately", dbinfo.config != NFCKEYSettings.CONFIG_PASSWORD_ASK);
+			if (NFCKEYSettings.Default_APP >0){
+				Toast.makeText(getApplicationContext(), getString(R.string.LaunchingKeePass), Toast.LENGTH_SHORT).show();
+			}
 			try {
 				startActivity(intent);
+				app_found = true;
 			} catch (RuntimeException rr) {
-			rr.printStackTrace();
-			Toast.makeText(getApplicationContext(), getString(R.string.CantFindKeePassDroid), Toast.LENGTH_LONG).show();
-			finish();
+				app_found = false;
+				rr.printStackTrace();
+				if (NFCKEYSettings.Default_APP >0){
+					Toast.makeText(getApplicationContext(), getString(R.string.CantFindKeePassDroid), Toast.LENGTH_LONG).show();
+				}
 			}
+		}
  
-        }} else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
+        } else {Toast.makeText(getApplicationContext(), getString(R.string.DatabaseMissing), Toast.LENGTH_LONG).show();}
 		finish();
 		return true;
-
 	}
-
+		
 }
+
+

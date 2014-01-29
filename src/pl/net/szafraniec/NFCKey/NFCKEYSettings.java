@@ -36,7 +36,7 @@
 */
 package pl.net.szafraniec.NFCKey;
 
-public class Settings {
+public class NFCKEYSettings {
 	public static final String nfc_mime_type = "application/x-nfckey";
 	public static final String nfc_mime_type_hidden = "text/plain";
 	public static final String nfcinfo_filename_template = "nfcinfo";
@@ -48,4 +48,7 @@ public class Settings {
 	public static final int config_length = 1; // Config byte, currently set if ask for password
 	public static final int CONFIG_NOTHING = 0;
 	public static final int CONFIG_PASSWORD_ASK = 1;
+	public static int Default_APP = 0;
+	public static final String PREFS_NAME = "NFCKeyConfig";
 }
+

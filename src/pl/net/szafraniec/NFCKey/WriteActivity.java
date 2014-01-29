@@ -78,7 +78,7 @@ public class WriteActivity extends Activity {
     private static final int REQUEST_NFC_WRITE = 2;
 	private File keyfile = null;
 	private File database = null;
-	private byte[] random_bytes = new byte[Settings.key_length];
+	private byte[] random_bytes = new byte[NFCKEYSettings.key_length];
 	public static NdefMessage nfc_payload;
 	private int keyfile_option = KEYFILE_NO;
 	private int password_option = PASSWORD_YES;
@@ -265,9 +265,9 @@ public class WriteActivity extends Activity {
 		rng.nextBytes(random_bytes);
 		// Create the NFC version of this data
 		if (szyfr == true) { 
-		nfc_mime_type_tmp = Settings.nfc_mime_type_hidden;
+		nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type_hidden;
 		} else {
-		nfc_mime_type_tmp = Settings.nfc_mime_type;
+		nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type;
 		}
 		NdefRecord ndef_records = NdefRecord.createMime(nfc_mime_type_tmp, random_bytes);
 		nfc_payload = new NdefMessage(ndef_records);
@@ -281,9 +281,9 @@ public class WriteActivity extends Activity {
 		String password;
 
 		if (password_option == PASSWORD_ASK)
-			config = Settings.CONFIG_PASSWORD_ASK;
+			config = NFCKEYSettings.CONFIG_PASSWORD_ASK;
 		else
-			config = Settings.CONFIG_NOTHING;
+			config = NFCKEYSettings.CONFIG_NOTHING;
 		
 		// Policy: no password is stored as null password (bit silly?)
 		if (password_option == PASSWORD_NO)
