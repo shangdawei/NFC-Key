@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="action_settings">Ustawienia</string>
 	<string name="WriteNFCButton">Programuj tag NFC</string>
 	<string name="Database">Baza danych</string>
@@ -46,4 +46,5 @@
 	<string name="CantFindKeepass2Android">Nie można uruchomić Keepass2Android. Proszę go zainstalować.</string>
 	<string name="CantFindKeepass2AndroidOffline">Nie można uruchomić Keepass2Android offline. Proszę go zainstalować.</string>
 	<string name="SearchingForKeePass">Poszukiwanie aplikacji KeePass&#8230;</string>
+	<string name="Settings">Ustawienia</string>
 </resources>

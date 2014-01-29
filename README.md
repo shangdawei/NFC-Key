@@ -1,6 +1,6 @@
 # NFC Key
 
-Use your NFC-equipped Android phone to unlock your KeePassDroid database.
+Use your NFC-equipped Android phone to unlock your KeePass database.
 You can use any NFC Tag, including very popular Mifare Ultralight or Sony SmartTag.
 
 Security:
@@ -13,6 +13,8 @@ Security:
 Requires:
 
 * A phone which can write to, and read from, NFC tags (such as the Nexus 4,Xperia S, Xperia Z, Galaxy S3)
+* Keepass2Android online or/and
+* Keepass2Android offline or/and
 * KeePassDroid
 
 ## Build
