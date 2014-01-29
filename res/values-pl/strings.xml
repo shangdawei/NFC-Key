@@ -21,7 +21,8 @@
 	<string name="PlaceCloneTag">Umieść nowy tag, na który chcesz sklonować klucz.</string>
 	<string name="Exit">Zakończ</string>
 	<string name="LaunchingKeePass">Uruchamianie KeePassDroid&#8230;</string>
-	<string name="LaunchingKeePass2">Uruchamianie KeePass2Android&#8230;</string>
+	<string name="LaunchingKeepass2">Uruchamianie Keepass2Android&#8230;</string>
+	<string name="LaunchingKeepass2offline">Uruchamianie Keepass2Android offline&#8230;</string>
 	<string name="missing">[BRAK]</string>
 	<string name="About">O programie</string>
 	<string name="Donate">Wspomóż</string>
@@ -41,4 +42,8 @@
 	<string name="EnabeNFCFirst">Adapter NFC jest wyłączony. Proszę go włączyć.</string>
 	<string name="DecryptError">Błąd podczas deszyfrowania. Zaprogramuj klucz jeszcze raz.</string>
 	<string name="EncryptError">Błąd podczas szyfrowania danych :(</string>
+	<string name="ChooseApp">Wybierz aplikację KeePass:</string>
+	<string name="CantFindKeepass2Android">Nie można uruchomić Keepass2Android. Proszę go zainstalować.</string>
+	<string name="CantFindKeepass2AndroidOffline">Nie można uruchomić Keepass2Android offline. Proszę go zainstalować.</string>
+	<string name="SearchingForKeePass">Poszukiwanie aplikacji KeePass&#8230;</string>
 </resources>

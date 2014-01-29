@@ -37,10 +37,15 @@
 	<string name="HiddenKey">NFC key is hidden</string>
 	<string name="AutorunEnabed">Autorun for NFC tag is enabled</string>
 	<string name="DatabaseMissing">Internal database file is missing. Please write NFC tag again.</string>
-	<string name="LaunchingKeePass2">Launching KeePass2Android&#8230;</string>
+	<string name="LaunchingKeepass2">Launching Keepass2Android&#8230;</string>
+	<string name="LaunchingKeepass2offline">Launching Keepass2Android offline&#8230;</string>
 	<string name="CantFindKeePassDroid">Can\'t run KeePassDroid. Please install it first.</string>
 	<string name="CantFindNFCAdapter">Can\'t find any NFC adapter. Probably your device doesn\'t have it at all&#8230;</string>
 	<string name="EnabeNFCFirst">NFC adapter is disabled. Please enable it first</string>
 	<string name="DecryptError">Couldn\'t decrypt data. Please write NFC tag again.</string>
 	<string name="EncryptError">Couldn\'t encrypt data :(</string>
+	<string name="ChooseApp">Please choose KeePass app:</string>
+	<string name="CantFindKeepass2Android">Can\'t run Keepass2Android. Please install it first.</string>
+	<string name="CantFindKeepass2AndroidOffline">Can\'t run Keepass2Android offline. Please install it first.</string>
+	<string name="SearchingForKeePass">Searching for KeePass&#8230;</string>
 </resources>

@@ -97,7 +97,7 @@ public class DatabaseInfo {
 	{
 		int i;
 	    int idx = 0;
-	    byte[] padded_password = new byte[Settings.max_password_length];
+	    byte[] padded_password = new byte[NFCKEYSettings.max_password_length];
 		byte[] plaintext_password = password.getBytes();
 		SecureRandom rng = new SecureRandom();		
 		// Password length...
@@ -136,7 +136,7 @@ public class DatabaseInfo {
 			     }
 			 
 			     int length = (int)decrypted[0];
-			     if ((length <0) || (length >Settings.max_password_length )) {
+			     if ((length <0) || (length >NFCKEYSettings.max_password_length )) {
 			    	 Log.d(LOG_TAG, "BadPasswordLength:"+length);
 			    	 throw new CryptoFailedException();}
 			     return new String(decrypted, 1, length);
@@ -172,7 +172,7 @@ public class DatabaseInfo {
 		byte[] encrypted_password = encrypt_password(key);			
 		FileOutputStream nfcinfo;
 		try {
-			nfcinfo = ctx.openFileOutput(Settings.nfcinfo_filename_template + "_00.txt", Context.MODE_PRIVATE);
+			nfcinfo = ctx.openFileOutput(NFCKEYSettings.nfcinfo_filename_template + "_00.txt", Context.MODE_PRIVATE);
 		} catch (FileNotFoundException e) {
 		    Log.w(LOG_TAG, "DatabaseNotFound");
 			e.printStackTrace();
@@ -198,13 +198,13 @@ public class DatabaseInfo {
 	
 	public static DatabaseInfo deserialise(Context ctx, byte[] key) throws CryptoFailedException
 	{
-		int config = Settings.CONFIG_NOTHING;
+		int config = NFCKEYSettings.CONFIG_NOTHING;
 		String database = null, keyfile = null, password;
 		byte[] buffer = new byte[1024];
-		byte[] encrypted_password = new byte[Settings.max_password_length];		
+		byte[] encrypted_password = new byte[NFCKEYSettings.max_password_length];		
 		FileInputStream nfcinfo = null;
 		try {
-			nfcinfo = ctx.openFileInput(Settings.nfcinfo_filename_template + "_00.txt");
+			nfcinfo = ctx.openFileInput(NFCKEYSettings.nfcinfo_filename_template + "_00.txt");
 		} catch (FileNotFoundException e) {
 		    Log.w(LOG_TAG, "DatabaseNotFound");
 			e.printStackTrace();

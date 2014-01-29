@@ -119,7 +119,7 @@ public class CloneReadActivity extends Activity {
 	                if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA)
 	                {
 	                	String mimetype = record.toMimeType();
-	                	if (mimetype.equals(Settings.nfc_mime_type) || mimetype.equals(Settings.nfc_mime_type_hidden)){
+	                	if (mimetype.equals(NFCKEYSettings.nfc_mime_type) || mimetype.equals(NFCKEYSettings.nfc_mime_type_hidden)){
 		                	payload = record.getPayload();
 	                	}
 	                }

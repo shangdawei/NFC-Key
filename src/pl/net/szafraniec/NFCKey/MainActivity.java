@@ -41,6 +41,7 @@ import pl.net.szafraniec.NFCKey.AboutDialog;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,9 +54,12 @@ import pl.net.szafraniec.NFCKey.R;
 import android.provider.Settings;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+
 public class MainActivity extends Activity {
+
 	final public int ABOUT = 0;
 	public static String version;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -77,6 +81,8 @@ public class MainActivity extends Activity {
 				startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
 					}
 		}
+	    SharedPreferences settings = getSharedPreferences(NFCKEYSettings.PREFS_NAME, 0);
+	    NFCKEYSettings.Default_APP = settings.getInt("DefaultApp",0);
 		Button x = (Button) findViewById(R.id.quit);
         x.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +140,10 @@ public class MainActivity extends Activity {
 	        case R.id.donate:
             	Intent intent = new Intent(getApplicationContext(), DonateActivity.class);
                 startActivity(intent);
+    			break;
+	        case R.id.settings:
+            	Intent settings = new Intent(getApplicationContext(), ChooseActivity.class);
+                startActivity(settings);
     			break;
 	    }
 	            return true;
