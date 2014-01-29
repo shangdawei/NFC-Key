@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true" >
+    android:fillViewport="true" xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,28 +30,31 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:onClick="onRadioButtonClicked"
-                android:text="Autodetect" />
+                android:text="@string/Autodetect" />
 
             <RadioButton
                 android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Keepass2Android" />
+                android:text="Keepass2Android"
+                tools:ignore="HardcodedText" />
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Keepass2Android offline" />
+                android:text="Keepass2Android offline"
+                tools:ignore="HardcodedText" />
 
             <RadioButton
                 android:id="@+id/radio3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="KeePassDroid" />
+                android:text="KeePassDroid"
+                tools:ignore="HardcodedText" />
 
         </RadioGroup>
 

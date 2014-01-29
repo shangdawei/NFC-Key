@@ -9,8 +9,5 @@ class CryptoFailedException extends Exception {
 
 	/** Called when the activity is first created. */
 
-	
-	    // TODO Auto-generated method stub
-	}
-
-
+	// TODO Auto-generated method stub
+}

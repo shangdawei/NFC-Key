@@ -49,4 +49,5 @@
 	<string name="CantFindKeepass2AndroidOffline">Can\'t run Keepass2Android offline. Please install it first.</string>
 	<string name="SearchingForKeePass">Searching for KeePass&#8230;</string>
 	<string name="Settings">Settings</string>
+	<string name="Autodetect">Autodetect</string>
 </resources>

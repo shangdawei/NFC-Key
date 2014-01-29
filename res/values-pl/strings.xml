@@ -47,4 +47,5 @@
 	<string name="CantFindKeepass2AndroidOffline">Nie można uruchomić Keepass2Android offline. Proszę go zainstalować.</string>
 	<string name="SearchingForKeePass">Poszukiwanie aplikacji KeePass&#8230;</string>
 	<string name="Settings">Ustawienia</string>
+	<string name="Autodetect">Wykryj automatycznie</string>
 </resources>
