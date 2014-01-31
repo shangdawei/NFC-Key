@@ -1,5 +1,11 @@
 Changelog of NFCKey:
 
+Version 1.22:
+*minor fixes - UI, code
+
+Version 1.21:
+*minor fixes
+
 Version 1.2:
 *KeePass2Droid support
 

@@ -1,6 +1,6 @@
 package pl.net.szafraniec.NFCKey;
 
-class CryptoFailedException extends Exception {
+public class CryptoFailedException extends Exception {
 
 	/**
 	 * 

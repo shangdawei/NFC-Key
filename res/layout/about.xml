@@ -27,13 +27,13 @@
         <TextView
             android:id="@+id/legal_text"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:linksClickable="true"
             android:scrollbars="vertical"
             android:textColor="#cccccc"
-            android:textSize="10dip"
+            android:textSize="12sp"
             android:textStyle="italic" />
 
     </ScrollView>

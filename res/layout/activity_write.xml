@@ -34,7 +34,7 @@
 
             <TextView
                 android:id="@+id/database_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -61,23 +61,17 @@
                 android:id="@+id/keyfile_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_keyfile"
-                android:layout_below="@+id/tv_keyfile"
                 android:text="@string/KeyfileNotRequired" />
 
             <RadioButton
                 android:id="@+id/keyfile_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_keyfile"
-                android:layout_below="@+id/keyfile_no"
                 android:text="@string/UseAKeyFile" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/keyfile_yes"
-                android:layout_below="@+id/keyfile_yes" >
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/choose_keyfile"
@@ -89,7 +83,7 @@
 
                 <TextView
                     android:id="@+id/keyfile_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -117,32 +111,24 @@
                 android:id="@+id/password_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/RadioButton02"
-                android:layout_below="@+id/tv_password"
                 android:text="@string/PasswordNotRequired" />
 
             <RadioButton
                 android:id="@+id/password_ask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_password"
-                android:layout_below="@+id/password_no"
                 android:text="@string/AskEachTime" />
 
             <RadioButton
                 android:id="@+id/password_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_keyfile"
-                android:layout_below="@+id/password_ask"
                 android:text="@string/UseAPassword" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/password_yes"
-                android:layout_below="@+id/password_yes"
                 android:ems="10"
                 android:inputType="textPassword" >
             </EditText>
