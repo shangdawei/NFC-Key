@@ -39,6 +39,7 @@ package pl.net.szafraniec.NFCKey;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -94,6 +95,9 @@ public class ReadActivity extends Activity {
 		if (dbinfo.database != null) {
 			Intent intent = new Intent();
 			boolean app_found = false;
+			SharedPreferences settings = getSharedPreferences(
+					NFCKEYSettings.PREFS_NAME, 0);
+			NFCKEYSettings.Default_APP = settings.getInt("DefaultApp", 0);
 			if (NFCKEYSettings.Default_APP == 0) {
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.SearchingForKeePass),
