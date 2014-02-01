@@ -19,7 +19,7 @@ Requires:
 
 ## Build
 
-1. ``ant``
+1. ``ant debug``
 
 ## Credits 
 Developed by Mateusz Szafraniec (https://github.com/mateusz-szafraniec)
