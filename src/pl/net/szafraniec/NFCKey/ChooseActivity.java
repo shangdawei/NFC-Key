@@ -41,16 +41,6 @@ public class ChooseActivity extends Activity {
 		});
 	}
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-		SharedPreferences settings = getSharedPreferences(
-				NFCKEYSettings.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("DefaultApp", NFCKEYSettings.Default_APP);
-		editor.commit();
-	}
-
 	public void onRadioButtonClicked(View view) {
 		// Is the button now checked?
 		boolean checked = ((RadioButton) view).isChecked();
@@ -74,5 +64,15 @@ public class ChooseActivity extends Activity {
 				NFCKEYSettings.Default_APP = 3;
 			break;
 		}
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		SharedPreferences settings = getSharedPreferences(
+				NFCKEYSettings.PREFS_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("DefaultApp", NFCKEYSettings.Default_APP);
+		editor.commit();
 	}
 }

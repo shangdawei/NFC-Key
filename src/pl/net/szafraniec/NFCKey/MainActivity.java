@@ -36,22 +36,19 @@
  */
 package pl.net.szafraniec.NFCKey;
 
-import pl.net.szafraniec.NFCKey.AboutDialog;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import pl.net.szafraniec.NFCKey.R;
-import android.provider.Settings;
-import android.content.pm.PackageManager.NameNotFoundException;
 
 public class MainActivity extends Activity {
 

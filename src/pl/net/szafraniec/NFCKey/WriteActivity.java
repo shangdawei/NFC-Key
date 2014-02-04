@@ -39,8 +39,6 @@ package pl.net.szafraniec.NFCKey;
 import java.io.File;
 import java.security.SecureRandom;
 
-import pl.net.szafraniec.NFCKey.R;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -83,33 +81,58 @@ public class WriteActivity extends Activity {
 	public Boolean szyfr;
 	public String nfc_mime_type_tmp;
 
-	@Override
-	protected void onCreate(Bundle sis) {
-		super.onCreate(sis);
-		setContentView(R.layout.activity_write);
-		szyfr = false;
-		if (sis != null) {
-			password_option = sis.getInt("password_option");
-			keyfile_option = sis.getInt("keyfile_option");
-			if (sis.getString("keyfile").compareTo("") != 0)
-				keyfile = new File(sis.getString("keyfile"));
-			else
-				keyfile = null;
+	private void create_random_bytes() {
+		SecureRandom rng = new SecureRandom();
+		rng.nextBytes(random_bytes);
+		// Create the NFC version of this data
+		if (szyfr == true) {
+			nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type_hidden;
+		} else {
+			nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type;
 		}
-
-		initialiseView();
-
+		NdefRecord ndef_records = NdefRecord.createMime(nfc_mime_type_tmp,
+				random_bytes);
+		nfc_payload = new NdefMessage(ndef_records);
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle sis) {
-		super.onSaveInstanceState(sis);
-		if (keyfile == null)
-			sis.putString("keyfile", "");
+	private boolean encrypt_and_store() {
+		DatabaseInfo dbinfo;
+		int config;
+		String keyfile_filename;
+		String password;
+
+		if (password_option == PASSWORD_ASK)
+			config = NFCKEYSettings.CONFIG_PASSWORD_ASK;
 		else
-			sis.putString("keyfile", keyfile.getAbsolutePath());
-		sis.putInt("keyfile_option", keyfile_option);
-		sis.putInt("password_option", password_option);
+			config = NFCKEYSettings.CONFIG_NOTHING;
+
+		// Policy: no password is stored as null password (bit silly?)
+		if (password_option == PASSWORD_NO)
+			password = "";
+		else {
+			EditText et_password = (EditText) findViewById(R.id.password);
+			password = et_password.getText().toString();
+		}
+
+		// Policy: no keyfile is stored as empty filename.
+		if (keyfile_option == KEYFILE_NO)
+			keyfile_filename = "";
+		else {
+			keyfile_filename = keyfile.getAbsolutePath();
+		}
+
+		dbinfo = new DatabaseInfo(database.getAbsolutePath(), keyfile_filename,
+				password, config);
+
+		try {
+			return dbinfo.serialise(this, random_bytes);
+		} catch (CryptoFailedException e) {
+			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-encrypt");
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.EncryptError), Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		}
 	}
 
 	private void initialiseView() {
@@ -278,66 +301,38 @@ public class WriteActivity extends Activity {
 		}
 	}
 
-	private void create_random_bytes() {
-		SecureRandom rng = new SecureRandom();
-		rng.nextBytes(random_bytes);
-		// Create the NFC version of this data
-		if (szyfr == true) {
-			nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type_hidden;
-		} else {
-			nfc_mime_type_tmp = NFCKEYSettings.nfc_mime_type;
+	@Override
+	protected void onCreate(Bundle sis) {
+		super.onCreate(sis);
+		setContentView(R.layout.activity_write);
+		szyfr = false;
+		if (sis != null) {
+			password_option = sis.getInt("password_option");
+			keyfile_option = sis.getInt("keyfile_option");
+			if (sis.getString("keyfile").compareTo("") != 0)
+				keyfile = new File(sis.getString("keyfile"));
+			else
+				keyfile = null;
 		}
-		NdefRecord ndef_records = NdefRecord.createMime(nfc_mime_type_tmp,
-				random_bytes);
-		nfc_payload = new NdefMessage(ndef_records);
+
+		initialiseView();
+
 	}
 
-	private boolean encrypt_and_store() {
-		DatabaseInfo dbinfo;
-		int config;
-		String keyfile_filename;
-		String password;
-
-		if (password_option == PASSWORD_ASK)
-			config = NFCKEYSettings.CONFIG_PASSWORD_ASK;
+	@Override
+	protected void onSaveInstanceState(Bundle sis) {
+		super.onSaveInstanceState(sis);
+		if (keyfile == null)
+			sis.putString("keyfile", "");
 		else
-			config = NFCKEYSettings.CONFIG_NOTHING;
-
-		// Policy: no password is stored as null password (bit silly?)
-		if (password_option == PASSWORD_NO)
-			password = "";
-		else {
-			EditText et_password = (EditText) findViewById(R.id.password);
-			password = et_password.getText().toString();
-		}
-
-		// Policy: no keyfile is stored as empty filename.
-		if (keyfile_option == KEYFILE_NO)
-			keyfile_filename = "";
-		else {
-			keyfile_filename = keyfile.getAbsolutePath();
-		}
-
-		dbinfo = new DatabaseInfo(database.getAbsolutePath(), keyfile_filename,
-				password, config);
-
-		try {
-			return dbinfo.serialise(this, random_bytes);
-		} catch (CryptoFailedException e) {
-			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-encrypt");
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.EncryptError), Toast.LENGTH_SHORT)
-					.show();
-			return false;
-		}
+			sis.putString("keyfile", keyfile.getAbsolutePath());
+		sis.putInt("keyfile_option", keyfile_option);
+		sis.putInt("password_option", password_option);
 	}
 
-	private void updateRadioViews() {
-		setRadio(R.id.keyfile_no, keyfile_option == KEYFILE_NO);
-		setRadio(R.id.keyfile_yes, keyfile_option == KEYFILE_YES);
-		setRadio(R.id.password_no, password_option == PASSWORD_NO);
-		setRadio(R.id.password_ask, password_option == PASSWORD_ASK);
-		setRadio(R.id.password_yes, password_option == PASSWORD_YES);
+	private void setRadio(int id, boolean checked) {
+		RadioButton rb = (RadioButton) findViewById(id);
+		rb.setChecked(checked);
 	}
 
 	private void updateNonRadioViews() {
@@ -358,9 +353,12 @@ public class WriteActivity extends Activity {
 			tv_database.setText(getString(R.string.missing));
 	}
 
-	private void setRadio(int id, boolean checked) {
-		RadioButton rb = (RadioButton) findViewById(id);
-		rb.setChecked(checked);
+	private void updateRadioViews() {
+		setRadio(R.id.keyfile_no, keyfile_option == KEYFILE_NO);
+		setRadio(R.id.keyfile_yes, keyfile_option == KEYFILE_YES);
+		setRadio(R.id.password_no, password_option == PASSWORD_NO);
+		setRadio(R.id.password_ask, password_option == PASSWORD_ASK);
+		setRadio(R.id.password_yes, password_option == PASSWORD_YES);
 	}
 
 }

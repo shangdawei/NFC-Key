@@ -49,9 +49,35 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import pl.net.szafraniec.NFCKey.R;
 
 public class ReadTagActivity extends Activity {
+	private boolean load_from_nfc(byte[] payload) {
+		try {
+			DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
+			return startKeepassActivity(dbinfo);
+		} catch (CryptoFailedException e) {
+			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
+			Toast.makeText(this, getString(R.string.DecryptError),
+					Toast.LENGTH_LONG).show();
+			finish();
+			return false;
+		}
+	}
+
+	private void nfc_disable() {
+		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+		adapter.disableForegroundDispatch(this);
+	}
+
+	private void nfc_enable() {
+		// Register for any NFC event (only while we're in the foreground)
+		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+		PendingIntent pending_intent = PendingIntent.getActivity(this, 0,
+				new Intent(this, getClass())
+						.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		adapter.enableForegroundDispatch(this, pending_intent, null, null);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,32 +93,6 @@ public class ReadTagActivity extends Activity {
 				finish();
 			}
 		});
-	}
-
-	private void nfc_enable() {
-		// Register for any NFC event (only while we're in the foreground)
-		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-		PendingIntent pending_intent = PendingIntent.getActivity(this, 0,
-				new Intent(this, getClass())
-						.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-		adapter.enableForegroundDispatch(this, pending_intent, null, null);
-	}
-
-	private void nfc_disable() {
-		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-		adapter.disableForegroundDispatch(this);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		nfc_enable();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		nfc_disable();
 	}
 
 	@Override
@@ -125,17 +125,16 @@ public class ReadTagActivity extends Activity {
 		}
 	}
 
-	private boolean load_from_nfc(byte[] payload) {
-		try {
-			DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
-			return startKeepassActivity(dbinfo);
-		} catch (CryptoFailedException e) {
-			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
-			Toast.makeText(this, getString(R.string.DecryptError),
-					Toast.LENGTH_LONG).show();
-			finish();
-			return false;
-		}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		nfc_disable();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		nfc_enable();
 	}
 
 	private boolean startKeepassActivity(DatabaseInfo dbinfo) {

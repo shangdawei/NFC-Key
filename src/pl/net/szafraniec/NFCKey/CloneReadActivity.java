@@ -55,9 +55,23 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import pl.net.szafraniec.NFCKey.R;
 
 public class CloneReadActivity extends Activity {
+	private void nfc_disable() {
+		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+		adapter.disableForegroundDispatch(this);
+	}
+
+	private void nfc_enable() {
+		// Register for any NFC event (only while we're in the foreground)
+
+		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+		PendingIntent pending_intent = PendingIntent.getActivity(this, 0,
+				new Intent(this, getClass())
+						.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		adapter.enableForegroundDispatch(this, pending_intent, null, null);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,33 +88,6 @@ public class CloneReadActivity extends Activity {
 				finish();
 			}
 		});
-	}
-
-	private void nfc_enable() {
-		// Register for any NFC event (only while we're in the foreground)
-
-		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-		PendingIntent pending_intent = PendingIntent.getActivity(this, 0,
-				new Intent(this, getClass())
-						.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-		adapter.enableForegroundDispatch(this, pending_intent, null, null);
-	}
-
-	private void nfc_disable() {
-		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-		adapter.disableForegroundDispatch(this);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		nfc_enable();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		nfc_disable();
 	}
 
 	@Override
@@ -161,6 +148,18 @@ public class CloneReadActivity extends Activity {
 			startActivity(intent2);
 			finish();
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		nfc_disable();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		nfc_enable();
 	}
 
 }

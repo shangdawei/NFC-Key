@@ -47,9 +47,21 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
-import pl.net.szafraniec.NFCKey.R;
 
 public class ReadActivity extends Activity {
+	private boolean load_from_nfc(byte[] payload) {
+		try {
+			DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
+			return startKeepassActivity(dbinfo);
+		} catch (CryptoFailedException e) {
+			Toast.makeText(this, getString(R.string.DecryptError),
+					Toast.LENGTH_LONG).show();
+			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
+			finish();
+			return false;
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,19 +87,6 @@ public class ReadActivity extends Activity {
 
 		if (payload != null) {
 			load_from_nfc(payload);
-		}
-	}
-
-	private boolean load_from_nfc(byte[] payload) {
-		try {
-			DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
-			return startKeepassActivity(dbinfo);
-		} catch (CryptoFailedException e) {
-			Toast.makeText(this, getString(R.string.DecryptError),
-					Toast.LENGTH_LONG).show();
-			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
-			finish();
-			return false;
 		}
 	}
 
