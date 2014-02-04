@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">NFC Key</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="MissingTranslation">NFC Key</string>
     <string name="action_settings">Settings</string>
     <string name="WriteNFCButton">Write NFC tag</string>
 	<string name="Database">Database</string>
