@@ -39,12 +39,14 @@ package pl.net.szafraniec.NFCKey;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -103,6 +105,8 @@ public class ReadTagActivity extends Activity {
 				|| NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
 			Parcelable[] rawMsgs = intent
 					.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+			Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+			v.vibrate(100);
 			if (rawMsgs != null) {
 				NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
 				for (int j = 0; j < rawMsgs.length; j++) {

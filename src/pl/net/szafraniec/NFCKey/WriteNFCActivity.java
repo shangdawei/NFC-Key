@@ -40,6 +40,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.FormatException;
 import android.nfc.NfcAdapter;
@@ -47,6 +48,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -148,6 +150,8 @@ public class WriteNFCActivity extends Activity {
 				}
 			}
 			setResult(success);
+			Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+			v.vibrate(100);
 			finish();
 		}
 	}

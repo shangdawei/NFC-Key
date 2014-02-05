@@ -1,4 +1,7 @@
 Changelog of NFCKey:
+Version 1.32:
+*vibrate on TAG detect
+
 Version 1.31:
 *bug fix in autorun
 

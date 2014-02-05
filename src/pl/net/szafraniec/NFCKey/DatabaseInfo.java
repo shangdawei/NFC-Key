@@ -75,6 +75,7 @@ public class DatabaseInfo {
 		}
 		return new String(decrypted, 1, length);
 	}
+
 	private static Cipher get_cipher(byte[] key, int mode)
 			throws CryptoFailedException {
 		try {
@@ -99,6 +100,7 @@ public class DatabaseInfo {
 			throw new CryptoFailedException();
 		}
 	}
+
 	public String database;
 	public String keyfile_filename;
 	public String password;
