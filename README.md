@@ -3,6 +3,10 @@
 Use your NFC-equipped Android phone to unlock your KeePass database.
 You can use any NFC Tag, including very popular Mifare Ultralight or Sony SmartTag.
 
+![screenshot-1](https://raw2.github.com/mateusz-szafraniec/NFC-Key/master/screenshot-en/device-2014-02-07-003803.png) 
+![screenshot-2](https://raw2.github.com/mateusz-szafraniec/NFC-Key/master/screenshot-en/device-2014-02-07-003908.png)
+![screenshot-3](https://raw2.github.com/mateusz-szafraniec/NFC-Key/master/screenshot-en/device-2014-02-07-003840.png)
+
 Security:
 
 	NFC tag stores only random numbers, and the password is encrypted with those numbers (AES-128 algorithm), stored in protected 
