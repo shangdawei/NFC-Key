@@ -1,4 +1,8 @@
 Changelog of NFCKey:
+Version 1.33:
+*editboxes for database and keyfile added
+*updated layout
+
 Version 1.32:
 *vibrate on TAG detect
 
