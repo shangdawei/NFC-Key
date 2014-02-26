@@ -19,5 +19,5 @@
     <string name="storage_removed">Storage was removed or unmounted.</string>
     <string name="choose_file">Select a file</string>
     <string name="error_selecting_file">Error selecting File</string>
-    <string name="internal_storage" tools:ignore="UnusedResources">Internal storage</string>
+    <string name="internal_storage" tools:ignore="UnusedResources,MissingTranslation">Internal storage</string>
 </resources>

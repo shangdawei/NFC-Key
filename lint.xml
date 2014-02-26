@@ -3,6 +3,9 @@
     <issue id="ContentDescription" severity="ignore" />
     <issue id="IconDensities" severity="ignore" />
     <issue id="IconDipSize" severity="ignore" />
+    <issue id="MissingTranslation">
+        <ignore path="res/values/strings.xml" />
+    </issue>
     <issue id="UnusedResources" severity="ignore">
         <ignore path="android-libs/aFileChooser/aFileChooser/res/values/strings.xml" />
     </issue>

@@ -2,27 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="pl.net.szafraniec.NFCKey.WriteActivity" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="504dp" >
+        android:layout_height="wrap_content" >
 
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
         <TextView
             android:id="@+id/tv_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:text="@string/Database"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
             android:id="@+id/ll_database"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_database"
-            android:layout_below="@+id/tv_database" >
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/choose_database"
@@ -32,13 +33,14 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/folder_outline_dark" />
 
-            <TextView
+            <EditText
                 android:id="@+id/database_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:ems="10"
+                tools:ignore="TextFields" >
+            </EditText>
 
         </LinearLayout>
 
@@ -46,16 +48,13 @@
             android:id="@+id/tv_keyfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_database"
             android:text="@string/Keyfile"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <RadioGroup
             android:id="@+id/keyfile_radiobuttons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/tv_keyfile"
-            android:layout_below="@+id/tv_keyfile" >
+            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/keyfile_no"
@@ -81,13 +80,15 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/folder_outline_dark" />
 
-                <TextView
+                <EditText
                     android:id="@+id/keyfile_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:ems="10"
+                	tools:ignore="TextFields" />
+
             </LinearLayout>
         </RadioGroup>
 
@@ -95,17 +96,13 @@
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_keyfile"
-            android:layout_below="@+id/keyfile_radiobuttons"
             android:text="@string/Password"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <RadioGroup
             android:id="@+id/password_radiobuttons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/tv_password"
-            android:layout_below="@+id/tv_password" >
+            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/password_no"
@@ -134,6 +131,16 @@
             </EditText>
         </RadioGroup>
 
+        <Switch
+            android:id="@+id/autostart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:checked="true"
+            android:text="@string/Autorun" />
+
+</LinearLayout>
+
         <Button
             android:id="@+id/app_quit"
             android:layout_width="wrap_content"
@@ -150,16 +157,9 @@
             android:layout_alignParentRight="true"
             android:text="@string/WriteNFCButton" />
 
-        <Switch
-            android:id="@+id/autostart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/password_radiobuttons"
-            android:layout_marginTop="29dp"
-            android:checked="true"
-            android:text="@string/Autorun" />
-
     </RelativeLayout>
+
+
+    
 
 </ScrollView>

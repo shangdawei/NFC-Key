@@ -36,7 +36,6 @@
  */
 package pl.net.szafraniec.NFCKey;
 
-import java.io.File;
 import java.security.SecureRandom;
 
 import android.app.Activity;
@@ -57,7 +56,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
@@ -72,8 +70,7 @@ public class WriteActivity extends Activity {
 	private static final int REQUEST_KEYFILE = 0;
 	private static final int REQUEST_DATABASE = 1;
 	private static final int REQUEST_NFC_WRITE = 2;
-	private File keyfile = null;
-	private File database = null;
+	private String database, keyfile = null;
 	private byte[] random_bytes = new byte[NFCKEYSettings.key_length];
 	public static NdefMessage nfc_payload;
 	private int keyfile_option = KEYFILE_NO;
@@ -98,7 +95,6 @@ public class WriteActivity extends Activity {
 	private boolean encrypt_and_store() {
 		DatabaseInfo dbinfo;
 		int config;
-		String keyfile_filename;
 		String password;
 
 		if (password_option == PASSWORD_ASK)
@@ -116,13 +112,16 @@ public class WriteActivity extends Activity {
 
 		// Policy: no keyfile is stored as empty filename.
 		if (keyfile_option == KEYFILE_NO)
-			keyfile_filename = "";
+			keyfile = "";
 		else {
-			keyfile_filename = keyfile.getAbsolutePath();
+			EditText keyfile_name = (EditText) findViewById(R.id.keyfile_name);
+			keyfile = keyfile_name.getText().toString();
+			if (keyfile == getString(R.string.missing)) {
+				keyfile = "";
+			}
 		}
 
-		dbinfo = new DatabaseInfo(database.getAbsolutePath(), keyfile_filename,
-				password, config);
+		dbinfo = new DatabaseInfo(database, keyfile, password, config);
 
 		try {
 			return dbinfo.serialise(this, random_bytes);
@@ -198,7 +197,9 @@ public class WriteActivity extends Activity {
 		b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View self) {
-				if (database == null) {
+				EditText et_database = (EditText) findViewById(R.id.database_name);
+				database = et_database.getText().toString();
+				if (database == getString(R.string.missing)) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.SelectDatabaseFirst),
 							Toast.LENGTH_SHORT).show();
@@ -265,14 +266,14 @@ public class WriteActivity extends Activity {
 				// The URI of the selected file
 				final Uri uri = data.getData();
 				// Create a File from this Uri
-				keyfile = FileUtils.getFile(this, uri);
+				keyfile = FileUtils.getFile(this, uri).getAbsolutePath();
 				updateNonRadioViews();
 			}
 			break;
 		case REQUEST_DATABASE:
 			if (resultCode == RESULT_OK) {
 				final Uri uri = data.getData();
-				database = FileUtils.getFile(this, uri);
+				database = FileUtils.getFile(this, uri).getAbsolutePath();
 				updateNonRadioViews();
 			}
 			break;
@@ -310,7 +311,7 @@ public class WriteActivity extends Activity {
 			password_option = sis.getInt("password_option");
 			keyfile_option = sis.getInt("keyfile_option");
 			if (sis.getString("keyfile").compareTo("") != 0)
-				keyfile = new File(sis.getString("keyfile"));
+				keyfile = new String(sis.getString("keyfile"));
 			else
 				keyfile = null;
 		}
@@ -325,7 +326,7 @@ public class WriteActivity extends Activity {
 		if (keyfile == null)
 			sis.putString("keyfile", "");
 		else
-			sis.putString("keyfile", keyfile.getAbsolutePath());
+			sis.putString("keyfile", keyfile);
 		sis.putInt("keyfile_option", keyfile_option);
 		sis.putInt("password_option", password_option);
 	}
@@ -339,18 +340,18 @@ public class WriteActivity extends Activity {
 		EditText et_password = (EditText) findViewById(R.id.password);
 		et_password.setEnabled(password_option == PASSWORD_YES);
 
-		TextView tv_keyfile = (TextView) findViewById(R.id.keyfile_name);
-		tv_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
+		EditText et_keyfile = (EditText) findViewById(R.id.keyfile_name);
+		et_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
 		if (keyfile != null)
-			tv_keyfile.setText(keyfile.getAbsolutePath());
+			et_keyfile.setText(keyfile);
 		else
-			tv_keyfile.setText(getString(R.string.missing));
+			et_keyfile.setText(getString(R.string.missing));
 
-		TextView tv_database = (TextView) findViewById(R.id.database_name);
+		EditText et_database = (EditText) findViewById(R.id.database_name);
 		if (database != null)
-			tv_database.setText(database.getAbsolutePath());
+			et_database.setText(database);
 		else
-			tv_database.setText(getString(R.string.missing));
+			et_database.setText(getString(R.string.missing));
 	}
 
 	private void updateRadioViews() {
