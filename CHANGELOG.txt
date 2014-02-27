@@ -1,4 +1,8 @@
 Changelog of NFCKey:
+Version 1.35:
+*support for cloud storage
+*added open with app feature
+
 Version 1.33:
 *editboxes for database and keyfile added
 *updated layout

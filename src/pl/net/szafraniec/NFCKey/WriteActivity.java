@@ -37,6 +37,8 @@
 package pl.net.szafraniec.NFCKey;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.SecureRandom;
 
 import android.app.Activity;
@@ -123,15 +125,7 @@ public class WriteActivity extends Activity {
 			keyfile_filename = keyfile;
 		}
 		if (keyfile_filename == null) keyfile_filename ="";
-			
-		Toast.makeText(getApplicationContext(),
-				database, Toast.LENGTH_SHORT)
-				.show();
-		
-		Toast.makeText(getApplicationContext(),
-				keyfile_filename, Toast.LENGTH_SHORT)
-				.show();
-		
+	
 		dbinfo = new DatabaseInfo(database, keyfile_filename,
 				password, config);
 
@@ -301,6 +295,27 @@ public class WriteActivity extends Activity {
 				}
 			}
 		});
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		if (action.equalsIgnoreCase(Intent.ACTION_SEND)
+				&& intent.hasExtra(Intent.EXTRA_TEXT)) {
+			String uri = intent.getStringExtra(Intent.EXTRA_TEXT);
+			((EditText) findViewById(R.id.database_name)).setText(uri);
+			updateEditBox();
+		}
+		if (action.equalsIgnoreCase(Intent.ACTION_VIEW))
+		{
+			String uri = intent.getDataString();
+			//uri = URLDecoder.decode(uri.substring(7, uri.length()));
+			try {
+				uri = URLDecoder.decode(uri.substring(7, uri.length()),"US-ASCII");
+			} catch (UnsupportedEncodingException e) {
+				Log.e(DatabaseInfo.LOG_TAG, e.toString());
+				e.printStackTrace();
+			}
+			((EditText) findViewById(R.id.database_name)).setText(uri);
+			updateEditBox();
+		}
 	}
 
 	// Stuff came back from file chooser
