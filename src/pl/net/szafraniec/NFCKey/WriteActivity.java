@@ -36,6 +36,7 @@
  */
 package pl.net.szafraniec.NFCKey;
 
+import java.io.File;
 import java.security.SecureRandom;
 
 import android.app.Activity;
@@ -46,9 +47,11 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -56,6 +59,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
@@ -70,7 +74,8 @@ public class WriteActivity extends Activity {
 	private static final int REQUEST_KEYFILE = 0;
 	private static final int REQUEST_DATABASE = 1;
 	private static final int REQUEST_NFC_WRITE = 2;
-	private String database, keyfile = null;
+	private String keyfile = null;
+	private String database, tmp = null;
 	private byte[] random_bytes = new byte[NFCKEYSettings.key_length];
 	public static NdefMessage nfc_payload;
 	private int keyfile_option = KEYFILE_NO;
@@ -95,6 +100,7 @@ public class WriteActivity extends Activity {
 	private boolean encrypt_and_store() {
 		DatabaseInfo dbinfo;
 		int config;
+		String keyfile_filename;
 		String password;
 
 		if (password_option == PASSWORD_ASK)
@@ -112,16 +118,22 @@ public class WriteActivity extends Activity {
 
 		// Policy: no keyfile is stored as empty filename.
 		if (keyfile_option == KEYFILE_NO)
-			keyfile = "";
+			keyfile_filename = "";
 		else {
-			EditText keyfile_name = (EditText) findViewById(R.id.keyfile_name);
-			keyfile = keyfile_name.getText().toString();
-			if (keyfile == getString(R.string.missing)) {
-				keyfile = "";
-			}
+			keyfile_filename = keyfile;
 		}
-
-		dbinfo = new DatabaseInfo(database, keyfile, password, config);
+		if (keyfile_filename == null) keyfile_filename ="";
+			
+		Toast.makeText(getApplicationContext(),
+				database, Toast.LENGTH_SHORT)
+				.show();
+		
+		Toast.makeText(getApplicationContext(),
+				keyfile_filename, Toast.LENGTH_SHORT)
+				.show();
+		
+		dbinfo = new DatabaseInfo(database, keyfile_filename,
+				password, config);
 
 		try {
 			return dbinfo.serialise(this, random_bytes);
@@ -140,7 +152,10 @@ public class WriteActivity extends Activity {
 
 		updateRadioViews();
 		updateNonRadioViews();
-
+		((EditText) findViewById(R.id.keyfile_name)).setText(keyfile);
+		((EditText) findViewById(R.id.database_name)).setText(database);
+		updateEditBox();
+		
 		Switch sw = (Switch) findViewById(R.id.autostart);
 		sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -197,9 +212,8 @@ public class WriteActivity extends Activity {
 		b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View self) {
-				EditText et_database = (EditText) findViewById(R.id.database_name);
-				database = et_database.getText().toString();
-				if (database == getString(R.string.missing)) {
+				updateEditBox();
+				if (database == null) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.SelectDatabaseFirst),
 							Toast.LENGTH_SHORT).show();
@@ -220,6 +234,38 @@ public class WriteActivity extends Activity {
 				finish();
 			}
 		});
+
+        TextView.OnEditorActionListener alClear = new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE){
+                    textView.clearFocus();
+                }
+                return false;
+            }
+        };
+        
+        EditText et = (EditText) findViewById(R.id.database_name);
+        et.setOnEditorActionListener(alClear);
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus){
+                	updateEditBox();
+                	}
+            }
+        });
+
+        et = (EditText) findViewById(R.id.keyfile_name);
+        et.setOnEditorActionListener(alClear);
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus){
+                	updateEditBox();
+                }
+            }
+        });
 
 		ImageButton ib = (ImageButton) findViewById(R.id.choose_keyfile);
 		ib.setOnClickListener(new OnClickListener() {
@@ -266,14 +312,15 @@ public class WriteActivity extends Activity {
 				// The URI of the selected file
 				final Uri uri = data.getData();
 				// Create a File from this Uri
-				keyfile = FileUtils.getFile(this, uri).getAbsolutePath();
+				((EditText) findViewById(R.id.keyfile_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath()); 
+ 
 				updateNonRadioViews();
 			}
 			break;
 		case REQUEST_DATABASE:
 			if (resultCode == RESULT_OK) {
 				final Uri uri = data.getData();
-				database = FileUtils.getFile(this, uri).getAbsolutePath();
+				((EditText) findViewById(R.id.database_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath());
 				updateNonRadioViews();
 			}
 			break;
@@ -311,9 +358,14 @@ public class WriteActivity extends Activity {
 			password_option = sis.getInt("password_option");
 			keyfile_option = sis.getInt("keyfile_option");
 			if (sis.getString("keyfile").compareTo("") != 0)
-				keyfile = new String(sis.getString("keyfile"));
+				keyfile = sis.getString("keyfile");
 			else
 				keyfile = null;
+			
+			if (sis.getString("database").compareTo("") != 0)
+				database = sis.getString("database");
+			else
+				database = null;
 		}
 
 		initialiseView();
@@ -323,10 +375,17 @@ public class WriteActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle sis) {
 		super.onSaveInstanceState(sis);
+		updateEditBox();
 		if (keyfile == null)
 			sis.putString("keyfile", "");
 		else
 			sis.putString("keyfile", keyfile);
+		
+		if (database == null)
+			sis.putString("database", "");
+		else
+			sis.putString("database", database);
+		
 		sis.putInt("keyfile_option", keyfile_option);
 		sis.putInt("password_option", password_option);
 	}
@@ -340,20 +399,28 @@ public class WriteActivity extends Activity {
 		EditText et_password = (EditText) findViewById(R.id.password);
 		et_password.setEnabled(password_option == PASSWORD_YES);
 
-		EditText et_keyfile = (EditText) findViewById(R.id.keyfile_name);
-		et_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
-		if (keyfile != null)
-			et_keyfile.setText(keyfile);
-		else
-			et_keyfile.setText(getString(R.string.missing));
-
-		EditText et_database = (EditText) findViewById(R.id.database_name);
-		if (database != null)
-			et_database.setText(database);
-		else
-			et_database.setText(getString(R.string.missing));
+		TextView tv_keyfile = (TextView) findViewById(R.id.keyfile_name);
+		tv_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
+		updateEditBox();
 	}
 
+	private void updateEditBox() {
+        tmp = ((EditText) findViewById(R.id.database_name)).getText().toString();
+        database = tmp;
+        if (tmp == null) database = null;
+        if (tmp.compareTo("") == 0) database = null;
+        if (tmp.compareTo(getString(R.string.missing)) == 0) database = null;
+        if (database == null) ((EditText) findViewById(R.id.database_name)).setText(getString(R.string.missing)); 
+
+        tmp = ((EditText) findViewById(R.id.keyfile_name)).getText().toString();
+        keyfile = tmp;
+        if (tmp == null) keyfile = null;
+        if (tmp.compareTo("") == 0) keyfile = null;
+        if (tmp.compareTo(getString(R.string.missing)) == 0) keyfile = null;
+        if (keyfile == null) ((EditText) findViewById(R.id.keyfile_name)).setText(getString(R.string.missing)); 
+
+	}
+	
 	private void updateRadioViews() {
 		setRadio(R.id.keyfile_no, keyfile_option == KEYFILE_NO);
 		setRadio(R.id.keyfile_yes, keyfile_option == KEYFILE_YES);

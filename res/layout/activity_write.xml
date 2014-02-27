@@ -40,7 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:imeOptions="actionDone"
+                android:inputType="textUri"
                 tools:ignore="TextFields" >
+
             </EditText>
 
         </LinearLayout>
@@ -88,7 +91,9 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:ems="10"
-                	tools:ignore="TextFields" />
+                    android:imeOptions="actionDone"
+                    android:inputType="textUri"
+                    tools:ignore="TextFields" />
 
             </LinearLayout>
         </RadioGroup>
