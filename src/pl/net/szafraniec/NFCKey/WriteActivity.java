@@ -36,7 +36,6 @@
  */
 package pl.net.szafraniec.NFCKey;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.SecureRandom;
@@ -124,10 +123,10 @@ public class WriteActivity extends Activity {
 		else {
 			keyfile_filename = keyfile;
 		}
-		if (keyfile_filename == null) keyfile_filename ="";
-	
-		dbinfo = new DatabaseInfo(database, keyfile_filename,
-				password, config);
+		if (keyfile_filename == null)
+			keyfile_filename = "";
+
+		dbinfo = new DatabaseInfo(database, keyfile_filename, password, config);
 
 		try {
 			return dbinfo.serialise(this, random_bytes);
@@ -149,7 +148,7 @@ public class WriteActivity extends Activity {
 		((EditText) findViewById(R.id.keyfile_name)).setText(keyfile);
 		((EditText) findViewById(R.id.database_name)).setText(database);
 		updateEditBox();
-		
+
 		Switch sw = (Switch) findViewById(R.id.autostart);
 		sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -229,37 +228,38 @@ public class WriteActivity extends Activity {
 			}
 		});
 
-        TextView.OnEditorActionListener alClear = new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
-                    textView.clearFocus();
-                }
-                return false;
-            }
-        };
-        
-        EditText et = (EditText) findViewById(R.id.database_name);
-        et.setOnEditorActionListener(alClear);
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus){
-                	updateEditBox();
-                	}
-            }
-        });
+		TextView.OnEditorActionListener alClear = new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int actionId,
+					KeyEvent keyEvent) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					textView.clearFocus();
+				}
+				return false;
+			}
+		};
 
-        et = (EditText) findViewById(R.id.keyfile_name);
-        et.setOnEditorActionListener(alClear);
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus){
-                	updateEditBox();
-                }
-            }
-        });
+		EditText et = (EditText) findViewById(R.id.database_name);
+		et.setOnEditorActionListener(alClear);
+		et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View view, boolean hasFocus) {
+				if (!hasFocus) {
+					updateEditBox();
+				}
+			}
+		});
+
+		et = (EditText) findViewById(R.id.keyfile_name);
+		et.setOnEditorActionListener(alClear);
+		et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View view, boolean hasFocus) {
+				if (!hasFocus) {
+					updateEditBox();
+				}
+			}
+		});
 
 		ImageButton ib = (ImageButton) findViewById(R.id.choose_keyfile);
 		ib.setOnClickListener(new OnClickListener() {
@@ -303,12 +303,12 @@ public class WriteActivity extends Activity {
 			((EditText) findViewById(R.id.database_name)).setText(uri);
 			updateEditBox();
 		}
-		if (action.equalsIgnoreCase(Intent.ACTION_VIEW))
-		{
+		if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
 			String uri = intent.getDataString();
-			//uri = URLDecoder.decode(uri.substring(7, uri.length()));
+			// uri = URLDecoder.decode(uri.substring(7, uri.length()));
 			try {
-				uri = URLDecoder.decode(uri.substring(7, uri.length()),"US-ASCII");
+				uri = URLDecoder.decode(uri.substring(7, uri.length()),
+						"US-ASCII");
 			} catch (UnsupportedEncodingException e) {
 				Log.e(DatabaseInfo.LOG_TAG, e.toString());
 				e.printStackTrace();
@@ -327,15 +327,17 @@ public class WriteActivity extends Activity {
 				// The URI of the selected file
 				final Uri uri = data.getData();
 				// Create a File from this Uri
-				((EditText) findViewById(R.id.keyfile_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath()); 
- 
+				((EditText) findViewById(R.id.keyfile_name)).setText(FileUtils
+						.getFile(this, uri).getAbsolutePath());
+
 				updateNonRadioViews();
 			}
 			break;
 		case REQUEST_DATABASE:
 			if (resultCode == RESULT_OK) {
 				final Uri uri = data.getData();
-				((EditText) findViewById(R.id.database_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath());
+				((EditText) findViewById(R.id.database_name)).setText(FileUtils
+						.getFile(this, uri).getAbsolutePath());
 				updateNonRadioViews();
 			}
 			break;
@@ -376,7 +378,7 @@ public class WriteActivity extends Activity {
 				keyfile = sis.getString("keyfile");
 			else
 				keyfile = null;
-			
+
 			if (sis.getString("database").compareTo("") != 0)
 				database = sis.getString("database");
 			else
@@ -395,12 +397,12 @@ public class WriteActivity extends Activity {
 			sis.putString("keyfile", "");
 		else
 			sis.putString("keyfile", keyfile);
-		
+
 		if (database == null)
 			sis.putString("database", "");
 		else
 			sis.putString("database", database);
-		
+
 		sis.putInt("keyfile_option", keyfile_option);
 		sis.putInt("password_option", password_option);
 	}
@@ -408,6 +410,34 @@ public class WriteActivity extends Activity {
 	private void setRadio(int id, boolean checked) {
 		RadioButton rb = (RadioButton) findViewById(id);
 		rb.setChecked(checked);
+	}
+
+	private void updateEditBox() {
+		tmp = ((EditText) findViewById(R.id.database_name)).getText()
+				.toString();
+		database = tmp;
+		if (tmp == null)
+			database = null;
+		if (tmp.compareTo("") == 0)
+			database = null;
+		if (tmp.compareTo(getString(R.string.missing)) == 0)
+			database = null;
+		if (database == null)
+			((EditText) findViewById(R.id.database_name))
+					.setText(getString(R.string.missing));
+
+		tmp = ((EditText) findViewById(R.id.keyfile_name)).getText().toString();
+		keyfile = tmp;
+		if (tmp == null)
+			keyfile = null;
+		if (tmp.compareTo("") == 0)
+			keyfile = null;
+		if (tmp.compareTo(getString(R.string.missing)) == 0)
+			keyfile = null;
+		if (keyfile == null)
+			((EditText) findViewById(R.id.keyfile_name))
+					.setText(getString(R.string.missing));
+
 	}
 
 	private void updateNonRadioViews() {
@@ -419,23 +449,6 @@ public class WriteActivity extends Activity {
 		updateEditBox();
 	}
 
-	private void updateEditBox() {
-        tmp = ((EditText) findViewById(R.id.database_name)).getText().toString();
-        database = tmp;
-        if (tmp == null) database = null;
-        if (tmp.compareTo("") == 0) database = null;
-        if (tmp.compareTo(getString(R.string.missing)) == 0) database = null;
-        if (database == null) ((EditText) findViewById(R.id.database_name)).setText(getString(R.string.missing)); 
-
-        tmp = ((EditText) findViewById(R.id.keyfile_name)).getText().toString();
-        keyfile = tmp;
-        if (tmp == null) keyfile = null;
-        if (tmp.compareTo("") == 0) keyfile = null;
-        if (tmp.compareTo(getString(R.string.missing)) == 0) keyfile = null;
-        if (keyfile == null) ((EditText) findViewById(R.id.keyfile_name)).setText(getString(R.string.missing)); 
-
-	}
-	
 	private void updateRadioViews() {
 		setRadio(R.id.keyfile_no, keyfile_option == KEYFILE_NO);
 		setRadio(R.id.keyfile_yes, keyfile_option == KEYFILE_YES);
