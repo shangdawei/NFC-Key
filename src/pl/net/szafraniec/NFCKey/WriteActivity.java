@@ -75,7 +75,7 @@ public class WriteActivity extends Activity {
 	private static final int REQUEST_DATABASE = 1;
 	private static final int REQUEST_NFC_WRITE = 2;
 	private String keyfile = null;
-	private String database = null;
+	private String database, tmp = null;
 	private byte[] random_bytes = new byte[NFCKEYSettings.key_length];
 	public static NdefMessage nfc_payload;
 	private int keyfile_option = KEYFILE_NO;
@@ -122,7 +122,16 @@ public class WriteActivity extends Activity {
 		else {
 			keyfile_filename = keyfile;
 		}
-
+		if (keyfile_filename == null) keyfile_filename ="";
+			
+		Toast.makeText(getApplicationContext(),
+				database, Toast.LENGTH_SHORT)
+				.show();
+		
+		Toast.makeText(getApplicationContext(),
+				keyfile_filename, Toast.LENGTH_SHORT)
+				.show();
+		
 		dbinfo = new DatabaseInfo(database, keyfile_filename,
 				password, config);
 
@@ -200,6 +209,7 @@ public class WriteActivity extends Activity {
 		b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View self) {
+				updateEditBox();
 				if (database == null) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.SelectDatabaseFirst),
@@ -238,8 +248,8 @@ public class WriteActivity extends Activity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus){
-                    database = ((EditText) findViewById(R.id.database_name)).getText().toString();
-                }
+                	updateEditBox();
+                	}
             }
         });
 
@@ -249,7 +259,7 @@ public class WriteActivity extends Activity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus){
-                    keyfile = ((EditText) findViewById(R.id.keyfile_name)).getText().toString();
+                	updateEditBox();
                 }
             }
         });
@@ -299,14 +309,15 @@ public class WriteActivity extends Activity {
 				// The URI of the selected file
 				final Uri uri = data.getData();
 				// Create a File from this Uri
-				keyfile = FileUtils.getFile(this, uri).getAbsolutePath();
+				((EditText) findViewById(R.id.keyfile_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath()); 
+ 
 				updateNonRadioViews();
 			}
 			break;
 		case REQUEST_DATABASE:
 			if (resultCode == RESULT_OK) {
 				final Uri uri = data.getData();
-				database = FileUtils.getFile(this, uri).getAbsolutePath();
+				((EditText) findViewById(R.id.database_name)).setText(FileUtils.getFile(this, uri).getAbsolutePath());
 				updateNonRadioViews();
 			}
 			break;
@@ -347,6 +358,11 @@ public class WriteActivity extends Activity {
 				keyfile = sis.getString("keyfile");
 			else
 				keyfile = null;
+			
+			if (sis.getString("database").compareTo("") != 0)
+				database = sis.getString("database");
+			else
+				database = null;
 		}
 
 		initialiseView();
@@ -360,6 +376,12 @@ public class WriteActivity extends Activity {
 			sis.putString("keyfile", "");
 		else
 			sis.putString("keyfile", keyfile);
+		
+		if (database == null)
+			sis.putString("database", "");
+		else
+			sis.putString("database", database);
+		
 		sis.putInt("keyfile_option", keyfile_option);
 		sis.putInt("password_option", password_option);
 	}
@@ -375,6 +397,9 @@ public class WriteActivity extends Activity {
 
 		TextView tv_keyfile = (TextView) findViewById(R.id.keyfile_name);
 		tv_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
+		updateEditBox();
+		
+		/*
 		if (keyfile != null)
 			tv_keyfile.setText(keyfile);
 		else
@@ -385,8 +410,27 @@ public class WriteActivity extends Activity {
 			tv_database.setText(database);
 		else
 			tv_database.setText(getString(R.string.missing));
+			
+			*/
 	}
 
+	private void updateEditBox() {
+        tmp = ((EditText) findViewById(R.id.database_name)).getText().toString();
+        database = tmp;
+        if (tmp == null) database = null;
+        if (tmp.compareTo("") == 0) database = null;
+        if (tmp.compareTo(getString(R.string.missing)) == 0) database = null;
+        if (database == null) ((EditText) findViewById(R.id.database_name)).setText(getString(R.string.missing)); 
+
+        tmp = ((EditText) findViewById(R.id.keyfile_name)).getText().toString();
+        keyfile = tmp;
+        if (tmp == null) keyfile = null;
+        if (tmp.compareTo("") == 0) keyfile = null;
+        if (tmp.compareTo(getString(R.string.missing)) == 0) keyfile = null;
+        if (keyfile == null) ((EditText) findViewById(R.id.keyfile_name)).setText(getString(R.string.missing)); 
+
+	}
+	
 	private void updateRadioViews() {
 		setRadio(R.id.keyfile_no, keyfile_option == KEYFILE_NO);
 		setRadio(R.id.keyfile_yes, keyfile_option == KEYFILE_YES);
