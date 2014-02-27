@@ -152,7 +152,10 @@ public class WriteActivity extends Activity {
 
 		updateRadioViews();
 		updateNonRadioViews();
-
+		((EditText) findViewById(R.id.keyfile_name)).setText(keyfile);
+		((EditText) findViewById(R.id.database_name)).setText(database);
+		updateEditBox();
+		
 		Switch sw = (Switch) findViewById(R.id.autostart);
 		sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -372,6 +375,7 @@ public class WriteActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle sis) {
 		super.onSaveInstanceState(sis);
+		updateEditBox();
 		if (keyfile == null)
 			sis.putString("keyfile", "");
 		else
@@ -398,20 +402,6 @@ public class WriteActivity extends Activity {
 		TextView tv_keyfile = (TextView) findViewById(R.id.keyfile_name);
 		tv_keyfile.setEnabled(keyfile_option == KEYFILE_YES);
 		updateEditBox();
-		
-		/*
-		if (keyfile != null)
-			tv_keyfile.setText(keyfile);
-		else
-			tv_keyfile.setText(getString(R.string.missing));
-
-		TextView tv_database = (TextView) findViewById(R.id.database_name);
-		if (database != null)
-			tv_database.setText(database);
-		else
-			tv_database.setText(getString(R.string.missing));
-			
-			*/
 	}
 
 	private void updateEditBox() {
