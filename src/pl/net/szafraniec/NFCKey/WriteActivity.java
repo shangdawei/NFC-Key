@@ -295,27 +295,7 @@ public class WriteActivity extends Activity {
 				}
 			}
 		});
-		Intent intent = getIntent();
-		String action = intent.getAction();
-		if (action.equalsIgnoreCase(Intent.ACTION_SEND)
-				&& intent.hasExtra(Intent.EXTRA_TEXT)) {
-			String uri = intent.getStringExtra(Intent.EXTRA_TEXT);
-			((EditText) findViewById(R.id.database_name)).setText(uri);
-			updateEditBox();
-		}
-		if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
-			String uri = intent.getDataString();
-			// uri = URLDecoder.decode(uri.substring(7, uri.length()));
-			try {
-				uri = URLDecoder.decode(uri.substring(7, uri.length()),
-						"US-ASCII");
-			} catch (UnsupportedEncodingException e) {
-				Log.e(DatabaseInfo.LOG_TAG, e.toString());
-				e.printStackTrace();
-			}
-			((EditText) findViewById(R.id.database_name)).setText(uri);
-			updateEditBox();
-		}
+
 	}
 
 	// Stuff came back from file chooser
@@ -384,7 +364,29 @@ public class WriteActivity extends Activity {
 			else
 				database = null;
 		}
-
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		if (action != null) {
+		if (action.equalsIgnoreCase(Intent.ACTION_SEND)
+				&& intent.hasExtra(Intent.EXTRA_TEXT)) {
+			String uri = intent.getStringExtra(Intent.EXTRA_TEXT);
+			((EditText) findViewById(R.id.database_name)).setText(uri);
+			updateEditBox();
+		}
+		if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
+			String uri = intent.getDataString();
+			// uri = URLDecoder.decode(uri.substring(7, uri.length()));
+			try {
+				uri = URLDecoder.decode(uri.substring(7, uri.length()),
+						"US-ASCII");
+			} catch (UnsupportedEncodingException e) {
+				Log.e(DatabaseInfo.LOG_TAG, e.toString());
+				e.printStackTrace();
+			}
+			((EditText) findViewById(R.id.database_name)).setText(uri);
+			updateEditBox();
+		}
+		}
 		initialiseView();
 
 	}
