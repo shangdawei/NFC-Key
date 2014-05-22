@@ -49,7 +49,6 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -109,20 +108,20 @@ public class CloneWriteNFCActivity extends Activity {
 					success = 1;
 				} catch (IOException e) {
 					e.printStackTrace();
-					Log.e(DatabaseInfo.LOG_TAG, "IOExceptionClonenWrite");
+					log.E("IOExceptionClonenWrite");
 					Toast.makeText(getApplicationContext(),
 							"IOExceptionClonenWrite", Toast.LENGTH_SHORT)
 							.show();
 
 				} catch (NullPointerException e) {
 					e.printStackTrace();
-					Log.e(DatabaseInfo.LOG_TAG, "NullPointerCloneWrite");
+					log.E("NullPointerCloneWrite");
 					Toast.makeText(getApplicationContext(),
 							"NullPointerCloneWrite", Toast.LENGTH_SHORT).show();
 
 				} catch (FormatException e) {
 					e.printStackTrace();
-					Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionCloneWrite");
+					log.E("FormatExceptionCloneWrite");
 					Toast.makeText(getApplicationContext(),
 							"FormatExceptionCloneWrite", Toast.LENGTH_SHORT)
 							.show();
@@ -138,19 +137,19 @@ public class CloneWriteNFCActivity extends Activity {
 						success = 1;
 					} catch (IOException e) {
 						e.printStackTrace();
-						Log.e(DatabaseInfo.LOG_TAG, "IOExceptionFormat");
+						log.E("IOExceptionFormat");
 						Toast.makeText(getApplicationContext(),
 								"IOExceptionFormat", Toast.LENGTH_SHORT).show();
 
 					} catch (NullPointerException e) {
 						e.printStackTrace();
-						Log.e(DatabaseInfo.LOG_TAG, "NullPointerFormat");
+						log.E("NullPointerFormat");
 						Toast.makeText(getApplicationContext(),
 								"NullPointerFormat", Toast.LENGTH_SHORT).show();
 
 					} catch (FormatException e) {
 						e.printStackTrace();
-						Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionFormat");
+						log.E("FormatExceptionFormat");
 						Toast.makeText(getApplicationContext(),
 								"FormatExceptionFormat", Toast.LENGTH_SHORT)
 								.show();

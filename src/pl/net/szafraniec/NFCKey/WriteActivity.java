@@ -47,7 +47,6 @@ import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -131,7 +130,7 @@ public class WriteActivity extends Activity {
 		try {
 			return dbinfo.serialise(this, random_bytes);
 		} catch (CryptoFailedException e) {
-			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-encrypt");
+			log.D("CryptoFailedException-encrypt");
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.EncryptError), Toast.LENGTH_SHORT)
 					.show();
@@ -273,7 +272,7 @@ public class WriteActivity extends Activity {
 				try {
 					startActivityForResult(intent, REQUEST_KEYFILE);
 				} catch (ActivityNotFoundException e) {
-					Log.d(DatabaseInfo.LOG_TAG, "ActivityNotFoundException");
+					log.D("ActivityNotFoundException");
 					e.printStackTrace();
 				}
 			}
@@ -290,7 +289,7 @@ public class WriteActivity extends Activity {
 				try {
 					startActivityForResult(intent, REQUEST_DATABASE);
 				} catch (ActivityNotFoundException e) {
-					Log.d(DatabaseInfo.LOG_TAG, "ActivityNotFoundException");
+					log.D("ActivityNotFoundException");
 					e.printStackTrace();
 				}
 			}
@@ -367,25 +366,25 @@ public class WriteActivity extends Activity {
 		Intent intent = getIntent();
 		String action = intent.getAction();
 		if (action != null) {
-		if (action.equalsIgnoreCase(Intent.ACTION_SEND)
-				&& intent.hasExtra(Intent.EXTRA_TEXT)) {
-			String uri = intent.getStringExtra(Intent.EXTRA_TEXT);
-			((EditText) findViewById(R.id.database_name)).setText(uri);
-			updateEditBox();
-		}
-		if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
-			String uri = intent.getDataString();
-			// uri = URLDecoder.decode(uri.substring(7, uri.length()));
-			try {
-				uri = URLDecoder.decode(uri.substring(7, uri.length()),
-						"US-ASCII");
-			} catch (UnsupportedEncodingException e) {
-				Log.e(DatabaseInfo.LOG_TAG, e.toString());
-				e.printStackTrace();
+			if (action.equalsIgnoreCase(Intent.ACTION_SEND)
+					&& intent.hasExtra(Intent.EXTRA_TEXT)) {
+				String uri = intent.getStringExtra(Intent.EXTRA_TEXT);
+				((EditText) findViewById(R.id.database_name)).setText(uri);
+				updateEditBox();
 			}
-			((EditText) findViewById(R.id.database_name)).setText(uri);
-			updateEditBox();
-		}
+			if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
+				String uri = intent.getDataString();
+				// uri = URLDecoder.decode(uri.substring(7, uri.length()));
+				try {
+					uri = URLDecoder.decode(uri.substring(7, uri.length()),
+							"US-ASCII");
+				} catch (UnsupportedEncodingException e) {
+					log.E(e.toString());
+					e.printStackTrace();
+				}
+				((EditText) findViewById(R.id.database_name)).setText(uri);
+				updateEditBox();
+			}
 		}
 		initialiseView();
 

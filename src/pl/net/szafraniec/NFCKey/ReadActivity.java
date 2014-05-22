@@ -47,7 +47,6 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
-import android.util.Log;
 import android.widget.Toast;
 
 public class ReadActivity extends Activity {
@@ -58,7 +57,7 @@ public class ReadActivity extends Activity {
 		} catch (CryptoFailedException e) {
 			Toast.makeText(this, getString(R.string.DecryptError),
 					Toast.LENGTH_LONG).show();
-			Log.d(DatabaseInfo.LOG_TAG, "CryptoFailedException-deserialize");
+			log.D("CryptoFailedException-deserialize");
 			finish();
 			return false;
 		}

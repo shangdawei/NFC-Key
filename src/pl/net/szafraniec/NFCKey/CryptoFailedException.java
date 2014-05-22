@@ -34,7 +34,7 @@
  * jeśli nie - napisz do Free Software Foundation, Inc., 59 Temple
  * Place, Fifth Floor, Boston, MA  02110-1301  USA
  */
- 
+
 package pl.net.szafraniec.NFCKey;
 
 public class CryptoFailedException extends Exception {

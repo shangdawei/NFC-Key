@@ -51,7 +51,6 @@ import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -129,19 +128,19 @@ public class CloneReadActivity extends Activity {
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				Log.e(DatabaseInfo.LOG_TAG, "IOExceptionCloneRead");
+				log.E("IOExceptionCloneRead");
 				Toast.makeText(getApplicationContext(), "IOExceptionCloneRead",
 						Toast.LENGTH_SHORT).show();
 
 			} catch (NullPointerException e) {
 				e.printStackTrace();
-				Log.e(DatabaseInfo.LOG_TAG, "NullPointerCloneRead");
+				log.E("NullPointerCloneRead");
 				Toast.makeText(getApplicationContext(), "NullPointerCloneRead",
 						Toast.LENGTH_SHORT).show();
 
 			} catch (FormatException e) {
 				e.printStackTrace();
-				Log.e(DatabaseInfo.LOG_TAG, "FormatExceptionCloneRead");
+				log.E("FormatExceptionCloneRead");
 				Toast.makeText(getApplicationContext(),
 						"FormatExceptionCloneRead", Toast.LENGTH_SHORT).show();
 			}
