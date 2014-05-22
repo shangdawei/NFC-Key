@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <string name="app_name" tools:ignore="MissingTranslation">NFC Key</string>
     <string name="action_settings" tools:ignore="MissingTranslation">Settings</string>
     <string name="WriteNFCButton">Write NFC tag</string>
-	<string name="Database">Database</string>
-	<string name="Keyfile">Keyfile</string>
-	<string name="KeyfileNotRequired">Keyfile not required</string>
-	<string name="UseAKeyFile">Use a keyfile:</string>
-	<string name="Password">Password</string>
-	<string name="PasswordNotRequired">Password not required</string>
-	<string name="AskEachTime">Ask each time</string>
-	<string name="UseAPassword">Use a password:</string>
-	<string name="SelectDatabaseFirst">Please select a database first</string>
-	<string name="SelectAKeyfile">Select a keyfile</string>
-	<string name="SelectADatabase">Select a database</string>
-	<string name="Success">Tag written successfully!</string>
-	<string name="ErrorDatabaseWriting">Error writing to application database!</string>
-	<string name="Failed">Couldn\'t write tag :(</string>
-	<string name="PlaceTag">Place a tag against your device.</string>
-	<string name="PlaceSourceTag">Place a SOURCE tag against your device to read from it.</string>
-	<string name="PlaceCloneTag">Place a NEW tag against your device to clone to it.</string>
-	<string name="Exit">Exit</string>
-	<string name="LaunchingKeePass">Launching KeePassDroid&#8230;</string>
-	<string name="missing">[MISSING]</string>
-	<string name="About">About</string>
-	<string name="Donate">Donate</string>
-	<string name="donateBitcoin_uri">bitcoin:17E32x5ygXkqf5EWJkryZuarUDUFrb8UqQ?label=NFC%20Key</string>
+    <string name="Database">Database</string>
+    <string name="Keyfile">Keyfile</string>
+    <string name="KeyfileNotRequired">Keyfile not required</string>
+    <string name="UseAKeyFile">Use a keyfile:</string>
+    <string name="Password">Password</string>
+    <string name="PasswordNotRequired">Password not required</string>
+    <string name="AskEachTime">Ask each time</string>
+    <string name="UseAPassword">Use a password:</string>
+    <string name="SelectDatabaseFirst">Please select a database first</string>
+    <string name="SelectAKeyfile">Select a keyfile</string>
+    <string name="SelectADatabase">Select a database</string>
+    <string name="Success">Tag written successfully!</string>
+    <string name="ErrorDatabaseWriting">Error writing to application database!</string>
+    <string name="Failed">Couldn\'t write tag :(</string>
+    <string name="PlaceTag">Place a tag against your device.</string>
+    <string name="PlaceSourceTag">Place a SOURCE tag against your device to read from it.</string>
+    <string name="PlaceCloneTag">Place a NEW tag against your device to clone to it.</string>
+    <string name="Exit">Exit</string>
+    <string name="LaunchingKeePass">Launching KeePassDroid&#8230;</string>
+    <string name="missing">[MISSING]</string>
+    <string name="About">About</string>
+    <string name="Donate">Donate</string>
+    <string name="donateBitcoin_uri">bitcoin:17E32x5ygXkqf5EWJkryZuarUDUFrb8UqQ?label=NFC%20Key</string>
     <string name="donatePayPal_uri">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=XBHND7WJ8A46Y</string>
-	<string name="DonateViaPayPal">Donate via PayPal:</string>	
-	<string name="SendABitcoin">Send a Bitcoin:</string>
-	<string name="IfYouLike">If this app is useful for you, please consider making a donation.</string>
-	<string name="ReadNFCTag">Read NFC tag</string>
-	<string name="CloneNFCTag">Clone NFC tag</string>
-	<string name="Autorun">Autorun</string>
-	<string name="AutorunDisabled">Autorun for NFC tag is disabled</string>
-	<string name="HiddenKey">NFC key is hidden</string>
-	<string name="AutorunEnabed">Autorun for NFC tag is enabled</string>
-	<string name="DatabaseMissing">Internal database file is missing. Please write NFC tag again.</string>
-	<string name="LaunchingKeepass2">Launching Keepass2Android&#8230;</string>
-	<string name="LaunchingKeepass2offline">Launching Keepass2Android offline&#8230;</string>
-	<string name="CantFindKeePassDroid">Can\'t run KeePassDroid. Please install it first.</string>
-	<string name="CantFindNFCAdapter">Can\'t find any NFC adapter. Probably your device doesn\'t have it at all&#8230;</string>
-	<string name="EnabeNFCFirst">NFC adapter is disabled. Please enable it first</string>
-	<string name="DecryptError">Couldn\'t decrypt data. Please write NFC tag again.</string>
-	<string name="EncryptError">Couldn\'t encrypt data :(</string>
-	<string name="ChooseApp">Please choose KeePass app:</string>
-	<string name="CantFindKeepass2Android">Can\'t run Keepass2Android. Please install it first.</string>
-	<string name="CantFindKeepass2AndroidOffline">Can\'t run Keepass2Android offline. Please install it first.</string>
-	<string name="SearchingForKeePass">Searching for KeePass&#8230;</string>
-	<string name="Settings">Settings</string>
-	<string name="Autodetect">Autodetect</string>
+    <string name="DonateViaPayPal">Donate via PayPal:</string>
+    <string name="SendABitcoin">Send a Bitcoin:</string>
+    <string name="IfYouLike">If this app is useful for you, please consider making a donation.</string>
+    <string name="ReadNFCTag">Read NFC tag</string>
+    <string name="CloneNFCTag">Clone NFC tag</string>
+    <string name="Autorun">Autorun</string>
+    <string name="AutorunDisabled">Autorun for NFC tag is disabled</string>
+    <string name="HiddenKey">NFC key is hidden</string>
+    <string name="AutorunEnabed">Autorun for NFC tag is enabled</string>
+    <string name="DatabaseMissing">Internal database file is missing. Please write NFC tag again.</string>
+    <string name="LaunchingKeepass2">Launching Keepass2Android&#8230;</string>
+    <string name="LaunchingKeepass2offline">Launching Keepass2Android offline&#8230;</string>
+    <string name="CantFindKeePassDroid">Can\'t run KeePassDroid. Please install it first.</string>
+    <string name="CantFindNFCAdapter">Can\'t find any NFC adapter. Probably your device doesn\'t have it at all&#8230;</string>
+    <string name="EnabeNFCFirst">NFC adapter is disabled. Please enable it first</string>
+    <string name="DecryptError">Couldn\'t decrypt data. Please write NFC tag again.</string>
+    <string name="EncryptError">Couldn\'t encrypt data :(</string>
+    <string name="ChooseApp">Please choose KeePass app:</string>
+    <string name="CantFindKeepass2Android">Can\'t run Keepass2Android. Please install it first.</string>
+    <string name="CantFindKeepass2AndroidOffline">Can\'t run Keepass2Android offline. Please install it first.</string>
+    <string name="SearchingForKeePass">Searching for KeePass&#8230;</string>
+    <string name="Settings">Settings</string>
+    <string name="Autodetect">Autodetect</string>
+    <string name="menu_item_rate">Rate app</string>
+    <string name="rate_text">Would you like to rate my app?</string>
+    <string name="menu_item_donate">Buy beer</string>
+    <string name="donate_text">Would you like to buy me a beer?</string>
+
 </resources>

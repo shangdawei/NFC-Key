@@ -84,8 +84,6 @@
 		</activity>
 	    <activity android:name="ReadTagActivity" android:screenOrientation="nosensor">
 	    </activity>
-	    <activity android:name="DonateActivity" android:screenOrientation="nosensor">
-	    </activity>
 	    <activity android:name="CloneReadActivity" android:screenOrientation="nosensor">
 	    </activity>
 	    <activity android:name="CloneWriteNFCActivity" android:screenOrientation="nosensor">
