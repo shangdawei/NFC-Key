@@ -76,6 +76,7 @@ public class MainActivity extends Activity {
 		prefs.putInt(PREF_RUNCOUNT, RunCount);
 		prefs.commit();
 	}
+
 	final public int ABOUT = 0;
 
 	public static String version;
