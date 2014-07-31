@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.net.szafraniec.NFCKey"
-    android:versionCode="22"
-    android:versionName="1.39" xmlns:tools="http://schemas.android.com/tools">
+    android:versionCode="21"
+    android:versionName="1.38" xmlns:tools="http://schemas.android.com/tools">
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="19" />
 	<uses-permission android:name="android.permission.NFC"/>
 	<uses-permission android:name="android.permission.VIBRATE"/>
-	<uses-feature android:required="true" android:name="android.hardware.nfc"/>
     
     <application
         android:icon="@drawable/ic_launcher"
