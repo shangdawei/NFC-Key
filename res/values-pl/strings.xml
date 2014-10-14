@@ -46,7 +46,4 @@
     <string name="Autodetect">Wykryj automatycznie</string>
     <string name="menu_item_rate">Oceń aplikację</string>
     <string name="rate_text">Czy chciałbyś ocenić moją aplikację?</string>
-    <string name="menu_item_donate">Kup piwo</string>
-    <string name="donate_text">Czy chcesz postawić mi piwo?</string>
-
 </resources>

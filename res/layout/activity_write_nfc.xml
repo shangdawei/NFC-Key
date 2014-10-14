@@ -11,14 +11,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:text="@android:string/cancel" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:text="@string/PlaceTag"
@@ -51,7 +49,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/cancel_nfc_write_button"
-        android:layout_alignParentLeft="true"
         android:indeterminate="true" />
 
 </RelativeLayout>

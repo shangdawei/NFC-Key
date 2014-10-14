@@ -51,8 +51,6 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -60,10 +58,6 @@ public class MainActivity extends Activity {
 	private static final String APP_LINK = "https://play.google.com/store/apps/details?id="
 			+ R.class.getPackage().getName();
 	public static final Uri URI_APP_LINK = Uri.parse(APP_LINK);
-	private static final String DONATE_APP_LINK = "https://play.google.com/store/apps/details?id=pl.net.szafraniec.kontakty";
-
-	public static final Uri URI_DONATE_APP_LINK = Uri.parse(DONATE_APP_LINK);
-
 	public static int getRunCount(Context context) {
 		SharedPreferences prefs = context
 				.getSharedPreferences(PREF_RUNCOUNT, 0);
@@ -81,10 +75,12 @@ public class MainActivity extends Activity {
 
 	public static String version;
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	    PRNGFixes.apply();
 		try {
 			version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 		} catch (NameNotFoundException e) {
@@ -116,44 +112,6 @@ public class MainActivity extends Activity {
 		SharedPreferences settings = getSharedPreferences(
 				NFCKEYSettings.PREFS_NAME, 0);
 		NFCKEYSettings.Default_APP = settings.getInt("DefaultApp", 0);
-		Button x = (Button) findViewById(R.id.quit);
-		x.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View self) {
-				finish();
-			}
-		});
-
-		Button clone = (Button) findViewById(R.id.clone);
-		clone.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View self) {
-				Intent intent = new Intent(getApplicationContext(),
-						CloneReadActivity.class);
-				startActivity(intent);
-				finish();
-			}
-		});
-
-		ImageView IV = (ImageView) findViewById(R.id.NFCLogo);
-		IV.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View self) {
-				Intent intent = new Intent(getApplicationContext(),
-						WriteActivity.class);
-				startActivity(intent);
-			}
-		});
-
-		Button r = (Button) findViewById(R.id.ReadBtn);
-		r.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View self) {
-				Intent intent = new Intent(getApplicationContext(),
-						ReadTagActivity.class);
-				startActivity(intent);
-			}
-		});
 	}
 
 	@Override
@@ -188,52 +146,7 @@ public class MainActivity extends Activity {
 										int id) {
 									// Do something here
 								}
-							})
-					.setNeutralButton(
-							getResources().getString(R.string.menu_item_donate),
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// Do something here
-									Intent GooglePlayIntent = new Intent(
-											Intent.ACTION_VIEW,
-											MainActivity.URI_DONATE_APP_LINK);
-									startActivity(GooglePlayIntent);
-								}
 							});
-
-			dialog = builder.create();
-			break;
-		case 2:
-			builder = new AlertDialog.Builder(this);
-			builder.setMessage(getResources().getString(R.string.donate_text))
-					.setTitle(
-							getResources().getString(R.string.menu_item_donate))
-					.setCancelable(false)
-					.setPositiveButton(
-							getResources().getString(R.string.menu_item_donate),
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// Do something here
-									Intent GooglePlayIntent = new Intent(
-											Intent.ACTION_VIEW,
-											MainActivity.URI_DONATE_APP_LINK);
-									startActivity(GooglePlayIntent);
-								}
-							})
-					.setNegativeButton(
-							getResources().getString(android.R.string.cancel),
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// Do something here
-								}
-							});
-
 			dialog = builder.create();
 			break;
 		default:
@@ -250,7 +163,8 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
@@ -266,17 +180,27 @@ public class MainActivity extends Activity {
 			break;
 		case R.id.menu_item_rate:
 			showDialog(1);
-			// Intent marketIntent = new Intent(
-			// Intent.ACTION_VIEW, URI_APP_LINK);
-			// activity.startActivity(marketIntent);
-			return true;
-		case R.id.menu_item_donate:
-			showDialog(2);
-			// Intent marketIntent = new Intent(
-			// Intent.ACTION_VIEW, URI_APP_LINK);
-			// activity.startActivity(marketIntent);
 			return true;
 		}
 		return true;
 	}
+	
+    public void clone(View view) {
+        Intent intent = new Intent(getApplicationContext(),
+                CloneReadActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    
+    public void writeNFC(View view) {
+        Intent intent = new Intent(getApplicationContext(),
+                WriteActivity.class);
+        startActivity(intent);
+    }
+    
+    public void readNFC(View view) {
+        Intent intent = new Intent(getApplicationContext(),
+                ReadTagActivity.class);
+        startActivity(intent);
+    }
 }

@@ -47,7 +47,4 @@
     <string name="Autodetect">Autodetect</string>
     <string name="menu_item_rate">Rate app</string>
     <string name="rate_text">Would you like to rate my app?</string>
-    <string name="menu_item_donate">Buy beer</string>
-    <string name="donate_text">Would you like to buy me a beer?</string>
-
 </resources>

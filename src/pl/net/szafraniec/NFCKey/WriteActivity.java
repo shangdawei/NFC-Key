@@ -39,7 +39,7 @@ package pl.net.szafraniec.NFCKey;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.SecureRandom;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -61,7 +61,6 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
 public class WriteActivity extends Activity {
@@ -83,7 +82,8 @@ public class WriteActivity extends Activity {
 	public Boolean szyfr;
 	public String nfc_mime_type_tmp;
 
-	private void create_random_bytes() {
+	@SuppressLint("TrulyRandom")
+    private void create_random_bytes() {
 		SecureRandom rng = new SecureRandom();
 		rng.nextBytes(random_bytes);
 		// Create the NFC version of this data
@@ -216,14 +216,6 @@ public class WriteActivity extends Activity {
 							WriteNFCActivity.class);
 					startActivityForResult(intent, REQUEST_NFC_WRITE);
 				}
-			}
-		});
-
-		Button f = (Button) findViewById(R.id.app_quit);
-		f.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View self) {
-				finish();
 			}
 		});
 
@@ -374,7 +366,6 @@ public class WriteActivity extends Activity {
 			}
 			if (action.equalsIgnoreCase(Intent.ACTION_VIEW)) {
 				String uri = intent.getDataString();
-				// uri = URLDecoder.decode(uri.substring(7, uri.length()));
 				try {
 					uri = URLDecoder.decode(uri.substring(7, uri.length()),
 							"US-ASCII");

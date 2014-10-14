@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true" xmlns:tools="http://schemas.android.com/tools">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
         <Button
             android:id="@+id/a_save"
             android:layout_width="match_parent"
@@ -16,13 +11,19 @@
             android:layout_centerHorizontal="true"
             android:text="@android:string/ok" />
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ChooseApp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <RadioGroup
             android:id="@+id/radioGroup1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_below="@+id/textView1"
-            android:layout_marginTop="56dp" >
+            android:layout_marginTop="10dp" >
 
             <RadioButton
                 android:id="@+id/radio0"
@@ -55,18 +56,6 @@
                 android:onClick="onRadioButtonClicked"
                 android:text="KeePassDroid"
                 tools:ignore="HardcodedText" />
-
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/ChooseApp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
-
-</ScrollView>
