@@ -1,0 +1,238 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From NFC-Key:
+* .gitattributes
+* .gitignore
+* .idea\
+* .idea\libraries\
+* .idea\libraries\android_support_v4.xml
+* .idea\libraries\dexedLibs.xml
+* CHANGELOG.txt
+* LICENSE.txt
+* README.md
+* android-libs\
+* android-libs\aFileChooser\
+* android-libs\aFileChooser\.gitignore
+* android-libs\aFileChooser\LICENSE-IANLAKE.txt
+* android-libs\aFileChooser\LICENSE.txt
+* android-libs\aFileChooser\README.markdown
+* android-libs\aFileChooser\aFileChooser\
+* android-libs\aFileChooser\aFileChooser\.classpath
+* android-libs\aFileChooser\aFileChooser\.project
+* android-libs\aFileChooser\aFileChooser\AndroidManifest.xml
+* android-libs\aFileChooser\aFileChooser\bin\
+* android-libs\aFileChooser\aFileChooser\bin\AndroidManifest.xml
+* android-libs\aFileChooser\aFileChooser\bin\R.txt
+* android-libs\aFileChooser\aFileChooser\bin\afilechooser.jar
+* android-libs\aFileChooser\aFileChooser\bin\classes\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ianhanniballake\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ianhanniballake\localstorage\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ianhanniballake\localstorage\LocalStorageProvider.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\BuildConfig.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileChooserActivity$1.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileChooserActivity.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileListAdapter.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileListFragment$Callbacks.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileListFragment.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileLoader$1.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\FileLoader.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$attr.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$bool.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$dimen.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$drawable.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$layout.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$string.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$style.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R$xml.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\R.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\utils\
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\utils\FileUtils$1.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\utils\FileUtils$2.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\utils\FileUtils$3.class
+* android-libs\aFileChooser\aFileChooser\bin\classes\com\ipaulpro\afilechooser\utils\FileUtils.class
+* android-libs\aFileChooser\aFileChooser\bin\jarlist.cache
+* android-libs\aFileChooser\aFileChooser\bin\res\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-hdpi\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-hdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-hdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-hdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-hdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-mdpi\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-mdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-mdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-mdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-mdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xhdpi\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xhdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xhdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xhdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xhdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xxhdpi\
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xxhdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xxhdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xxhdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\bin\res\crunch\drawable-xxhdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\build.xml
+* android-libs\aFileChooser\aFileChooser\gen\
+* android-libs\aFileChooser\aFileChooser\gen\com\
+* android-libs\aFileChooser\aFileChooser\gen\com\ipaulpro\
+* android-libs\aFileChooser\aFileChooser\gen\com\ipaulpro\afilechooser\
+* android-libs\aFileChooser\aFileChooser\gen\com\ipaulpro\afilechooser\BuildConfig.java
+* android-libs\aFileChooser\aFileChooser\gen\com\ipaulpro\afilechooser\R.java
+* android-libs\aFileChooser\aFileChooser\libs\
+* android-libs\aFileChooser\aFileChooser\libs\android-support-v4.jar
+* android-libs\aFileChooser\aFileChooser\proguard-project.txt
+* android-libs\aFileChooser\aFileChooser\proguard.cfg
+* android-libs\aFileChooser\aFileChooser\project.properties
+* android-libs\aFileChooser\aFileChooser\res\
+* android-libs\aFileChooser\aFileChooser\res\drawable-hdpi\
+* android-libs\aFileChooser\aFileChooser\res\drawable-hdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-hdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-hdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-hdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-mdpi\
+* android-libs\aFileChooser\aFileChooser\res\drawable-mdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-mdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-mdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-mdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xhdpi\
+* android-libs\aFileChooser\aFileChooser\res\drawable-xhdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xhdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xhdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xhdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xxhdpi\
+* android-libs\aFileChooser\aFileChooser\res\drawable-xxhdpi\ic_chooser.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xxhdpi\ic_file.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xxhdpi\ic_folder.png
+* android-libs\aFileChooser\aFileChooser\res\drawable-xxhdpi\ic_provider.png
+* android-libs\aFileChooser\aFileChooser\res\layout\
+* android-libs\aFileChooser\aFileChooser\res\layout\file.xml
+* android-libs\aFileChooser\aFileChooser\res\values-ca\
+* android-libs\aFileChooser\aFileChooser\res\values-ca\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-de\
+* android-libs\aFileChooser\aFileChooser\res\values-de\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-es\
+* android-libs\aFileChooser\aFileChooser\res\values-es\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-fr\
+* android-libs\aFileChooser\aFileChooser\res\values-fr\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-ga\
+* android-libs\aFileChooser\aFileChooser\res\values-ga\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-it\
+* android-libs\aFileChooser\aFileChooser\res\values-it\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-ko\
+* android-libs\aFileChooser\aFileChooser\res\values-ko\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-pl\
+* android-libs\aFileChooser\aFileChooser\res\values-pl\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-pt-rBR\
+* android-libs\aFileChooser\aFileChooser\res\values-pt-rBR\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-ru\
+* android-libs\aFileChooser\aFileChooser\res\values-ru\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-v11\
+* android-libs\aFileChooser\aFileChooser\res\values-v11\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values-v19\
+* android-libs\aFileChooser\aFileChooser\res\values-v19\bool.xml
+* android-libs\aFileChooser\aFileChooser\res\values\
+* android-libs\aFileChooser\aFileChooser\res\values\bool.xml
+* android-libs\aFileChooser\aFileChooser\res\values\dimens.xml
+* android-libs\aFileChooser\aFileChooser\res\values\strings.xml
+* android-libs\aFileChooser\aFileChooser\res\values\styles.xml
+* android-libs\aFileChooser\aFileChooser\res\xml\
+* android-libs\aFileChooser\aFileChooser\res\xml\mimetypes.xml
+* android-libs\aFileChooser\aFileChooser\src\
+* android-libs\aFileChooser\aFileChooser\src\com\
+* android-libs\aFileChooser\aFileChooser\src\com\ianhanniballake\
+* android-libs\aFileChooser\aFileChooser\src\com\ianhanniballake\localstorage\
+* android-libs\aFileChooser\aFileChooser\src\com\ianhanniballake\localstorage\LocalStorageProvider.java
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\FileChooserActivity.java
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\FileListAdapter.java
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\FileListFragment.java
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\FileLoader.java
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\utils\
+* android-libs\aFileChooser\aFileChooser\src\com\ipaulpro\afilechooser\utils\FileUtils.java
+* android-libs\aFileChooser\screenshot-1.png
+* android-libs\aFileChooser\screenshot-2.png
+* ic_launcher-web.png
+* proguard\
+* proguard\dump.txt
+* proguard\mapping.txt
+* proguard\seeds.txt
+* proguard\usage.txt
+* screenshot-en\
+* screenshot-en\1.png
+* screenshot-en\2.png
+* screenshot-en\3.png
+* screenshot-en\polecane.jpg
+* screenshot-pl\
+* screenshot-pl\device-2014-10-27-102702.png
+* screenshot-pl\device-2014-10-27-102717.png
+* screenshot-pl\device-2014-10-27-102735.png
+* screenshot-pl\polecane.jpg
+From aFileChooser:
+* build.xml
+* proguard-project.txt
+* proguard.cfg
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:19.1.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In aFileChooser:
+* AndroidManifest.xml => aFileChooser\src\main\AndroidManifest.xml
+* res\ => aFileChooser\src\main\res\
+* src\ => aFileChooser\src\main\java\
+In NFC-Key:
+* AndroidManifest.xml => nFCKey\src\main\AndroidManifest.xml
+* lint.xml => nFCKey\lint.xml
+* proguard.cfg => nFCKey\proguard.cfg
+* res\ => nFCKey\src\main\res\
+* src\ => nFCKey\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

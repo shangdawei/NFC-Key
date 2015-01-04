@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+    defaultConfig {
+        applicationId "pl.net.szafraniec.NFCKey"
+        minSdkVersion 16
+        targetSdkVersion 21
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile project(':aFileChooser')
+}
