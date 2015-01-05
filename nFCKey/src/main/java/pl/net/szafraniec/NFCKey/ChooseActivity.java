@@ -51,7 +51,7 @@ public class ChooseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SharedPreferences settings = getSharedPreferences(
 				NFCKEYSettings.PREFS_NAME, 0);
-		NFCKEYSettings.Default_APP = settings.getInt("DefaultApp", 0);
+		NFCKEYSettings.Default_APP = settings.getInt("DefaultApp", 3);
 		setContentView(R.layout.activity_choose);
 		RadioButton rb0 = (RadioButton) findViewById(R.id.radio0);
 		RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);

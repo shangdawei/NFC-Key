@@ -57,6 +57,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import roboguice.util.Ln;
+
 public class CloneReadActivity extends Activity {
 	private void nfc_disable() {
 		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
@@ -128,19 +130,19 @@ public class CloneReadActivity extends Activity {
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				log.E("IOExceptionCloneRead");
+				Ln.e("IOExceptionCloneRead");
 				Toast.makeText(getApplicationContext(), "IOExceptionCloneRead",
 						Toast.LENGTH_SHORT).show();
 
 			} catch (NullPointerException e) {
 				e.printStackTrace();
-				log.E("NullPointerCloneRead");
+				Ln.e("NullPointerCloneRead");
 				Toast.makeText(getApplicationContext(), "NullPointerCloneRead",
 						Toast.LENGTH_SHORT).show();
 
 			} catch (FormatException e) {
 				e.printStackTrace();
-				log.E("FormatExceptionCloneRead");
+				Ln.e("FormatExceptionCloneRead");
 				Toast.makeText(getApplicationContext(),
 						"FormatExceptionCloneRead", Toast.LENGTH_SHORT).show();
 			}

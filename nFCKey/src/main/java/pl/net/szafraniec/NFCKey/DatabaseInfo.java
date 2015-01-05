@@ -50,6 +50,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import android.content.Context;
 
+import roboguice.util.Ln;
+
 /* Represents the on-disk database info including encrypted password */
 
 public class DatabaseInfo {
@@ -60,16 +62,16 @@ public class DatabaseInfo {
 		try {
 			decrypted = cipher.doFinal(crypted_password);
 		} catch (javax.crypto.IllegalBlockSizeException e) {
-			log.D("IllegalBlockSize");
+			Ln.d("IllegalBlockSize");
 			throw new CryptoFailedException();
 		} catch (javax.crypto.BadPaddingException e) {
-			log.D("BadPadding");
+			Ln.d("BadPadding");
 			throw new CryptoFailedException();
 		}
 
 		int length = decrypted[0];
 		if ((length < 0) || (length > NFCKEYSettings.max_password_length)) {
-			log.D("BadPasswordLength:" + length);
+			Ln.d("BadPasswordLength:" + length);
 			throw new CryptoFailedException();
 		}
 		return new String(decrypted, 1, length);
@@ -86,16 +88,16 @@ public class DatabaseInfo {
 			cipher.init(mode, sks, iv);
 			return cipher;
 		} catch (java.security.NoSuchAlgorithmException e) {
-			log.D("NoSuchAlgorithm");
+			Ln.d("NoSuchAlgorithm");
 			throw new CryptoFailedException();
 		} catch (java.security.InvalidKeyException e) {
-			log.D("InvalidKey");
+			Ln.d("InvalidKey");
 			throw new CryptoFailedException();
 		} catch (javax.crypto.NoSuchPaddingException e) {
-			log.D("NoSuchPadding");
+			Ln.d("NoSuchPadding");
 			throw new CryptoFailedException();
 		} catch (java.security.InvalidAlgorithmParameterException e) {
-			log.D("InvalidAlgorithmParameter");
+			Ln.d("InvalidAlgorithmParameter");
 			throw new CryptoFailedException();
 		}
 	}
@@ -119,7 +121,7 @@ public class DatabaseInfo {
 					.openFileInput(NFCKEYSettings.nfcinfo_filename_template
 							+ "_00.txt");
 		} catch (FileNotFoundException e) {
-			log.W("DatabaseNotFound");
+			Ln.w("DatabaseNotFound");
 			e.printStackTrace();
 			return new DatabaseInfo(null, null, null, 0);
 		}
@@ -130,7 +132,7 @@ public class DatabaseInfo {
 			keyfile = read_string(nfcinfo, buffer);
 			read_bytes(nfcinfo, encrypted_password);
 		} catch (Exception e) {
-			log.W("Exception:nfcinfo.read");
+			Ln.w("Exception:nfcinfo.read");
 			e.printStackTrace();
 			return new DatabaseInfo(null, null, null, 0);
 		}
@@ -190,10 +192,10 @@ public class DatabaseInfo {
 		try {
 			return cipher.doFinal(padded_password);
 		} catch (javax.crypto.IllegalBlockSizeException e) {
-			log.D("IllegalBlockSize");
+			Ln.d("IllegalBlockSize");
 			throw new CryptoFailedException();
 		} catch (javax.crypto.BadPaddingException e) {
-			log.D("BadPadding");
+			Ln.d("BadPadding");
 			throw new CryptoFailedException();
 		}
 	}
@@ -212,7 +214,7 @@ public class DatabaseInfo {
 					NFCKEYSettings.nfcinfo_filename_template + "_00.txt",
 					Context.MODE_PRIVATE);
 		} catch (FileNotFoundException e) {
-			log.W("DatabaseNotFound");
+			Ln.w("DatabaseNotFound");
 			e.printStackTrace();
 			return false;
 		}
@@ -226,7 +228,7 @@ public class DatabaseInfo {
 			nfcinfo.write(encrypted_password);
 			nfcinfo.close();
 		} catch (IOException e) {
-			log.W("IOException while writing database file");
+			Ln.w("IOException while writing database file");
 			e.printStackTrace();
 			return false;
 		}

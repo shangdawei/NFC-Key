@@ -55,6 +55,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import roboguice.util.Ln;
+
 public class CloneWriteNFCActivity extends Activity {
 
 	private void nfc_disable() {
@@ -108,20 +110,20 @@ public class CloneWriteNFCActivity extends Activity {
 					success = 1;
 				} catch (IOException e) {
 					e.printStackTrace();
-					log.E("IOExceptionClonenWrite");
+					Ln.e("IOExceptionClonenWrite");
 					Toast.makeText(getApplicationContext(),
 							"IOExceptionClonenWrite", Toast.LENGTH_SHORT)
 							.show();
 
 				} catch (NullPointerException e) {
 					e.printStackTrace();
-					log.E("NullPointerCloneWrite");
+					Ln.e("NullPointerCloneWrite");
 					Toast.makeText(getApplicationContext(),
 							"NullPointerCloneWrite", Toast.LENGTH_SHORT).show();
 
 				} catch (FormatException e) {
 					e.printStackTrace();
-					log.E("FormatExceptionCloneWrite");
+					Ln.e("FormatExceptionCloneWrite");
 					Toast.makeText(getApplicationContext(),
 							"FormatExceptionCloneWrite", Toast.LENGTH_SHORT)
 							.show();
@@ -137,19 +139,19 @@ public class CloneWriteNFCActivity extends Activity {
 						success = 1;
 					} catch (IOException e) {
 						e.printStackTrace();
-						log.E("IOExceptionFormat");
+						Ln.e("IOExceptionFormat");
 						Toast.makeText(getApplicationContext(),
 								"IOExceptionFormat", Toast.LENGTH_SHORT).show();
 
 					} catch (NullPointerException e) {
 						e.printStackTrace();
-						log.E("NullPointerFormat");
+						Ln.e("NullPointerFormat");
 						Toast.makeText(getApplicationContext(),
 								"NullPointerFormat", Toast.LENGTH_SHORT).show();
 
 					} catch (FormatException e) {
 						e.printStackTrace();
-						log.E("FormatExceptionFormat");
+						Ln.e("FormatExceptionFormat");
 						Toast.makeText(getApplicationContext(),
 								"FormatExceptionFormat", Toast.LENGTH_SHORT)
 								.show();

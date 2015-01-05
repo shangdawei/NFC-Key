@@ -27,6 +27,8 @@ import java.security.SecureRandom;
 import java.security.SecureRandomSpi;
 import java.security.Security;
 
+import roboguice.util.Ln;
+
 /**
  * Fixes for the output of the default PRNG having low entropy.
  *
@@ -217,7 +219,7 @@ public final class PRNGFixes {
             } catch (IOException e) {
                 // On a small fraction of devices /dev/urandom is not writable.
                 // Log and ignore.
-                Log.w(PRNGFixes.class.getSimpleName(),
+                Ln.w(PRNGFixes.class.getSimpleName(),
                         "Failed to mix seed into " + URANDOM_FILE);
             } finally {
                 mSeeded = true;

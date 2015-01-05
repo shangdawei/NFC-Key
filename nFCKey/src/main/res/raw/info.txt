@@ -1,5 +1,5 @@
 <h3>NFC Key</h3>
-Copyright (C) 2014 Mateusz Szafraniec<br>
+Copyright (C) 2014,2015 Mateusz Szafraniec<br>
 Version:
 
 

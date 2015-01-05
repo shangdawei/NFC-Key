@@ -51,13 +51,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import roboguice.util.Ln;
+
 public class ReadTagActivity extends Activity {
 	private boolean load_from_nfc(byte[] payload) {
 		try {
 			DatabaseInfo dbinfo = DatabaseInfo.deserialise(this, payload);
 			return startKeepassActivity(dbinfo);
 		} catch (CryptoFailedException e) {
-			log.D("CryptoFailedException-deserialize");
+			Ln.d("CryptoFailedException-deserialize");
 			Toast.makeText(this, getString(R.string.DecryptError),
 					Toast.LENGTH_LONG).show();
 			finish();

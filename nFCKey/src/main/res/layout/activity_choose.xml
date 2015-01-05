@@ -29,9 +29,10 @@
                 android:id="@+id/radio0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:onClick="onRadioButtonClicked"
-                android:text="@string/Autodetect" />
+                android:text="@string/Autodetect"
+                android:enabled="false" />
 
             <RadioButton
                 android:id="@+id/radio1"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="Keepass2Android"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:enabled="false" />
 
             <RadioButton
                 android:id="@+id/radio2"
@@ -47,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="Keepass2Android offline"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:enabled="false" />
 
             <RadioButton
                 android:id="@+id/radio3"
@@ -55,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="KeePassDroid"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:checked="true" />
         </RadioGroup>
 
     </RelativeLayout>

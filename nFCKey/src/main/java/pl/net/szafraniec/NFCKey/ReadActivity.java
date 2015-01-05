@@ -49,6 +49,8 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.widget.Toast;
 
+import roboguice.util.Ln;
+
 public class ReadActivity extends Activity {
 	private boolean load_from_nfc(byte[] payload) {
 		try {
@@ -57,7 +59,7 @@ public class ReadActivity extends Activity {
 		} catch (CryptoFailedException e) {
 			Toast.makeText(this, getString(R.string.DecryptError),
 					Toast.LENGTH_LONG).show();
-			log.D("CryptoFailedException-deserialize");
+			Ln.d("CryptoFailedException-deserialize");
 			finish();
 			return false;
 		}

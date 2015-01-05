@@ -63,6 +63,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
+import roboguice.util.Ln;
+
 public class WriteActivity extends Activity {
 
 	private static final int PASSWORD_NO = 0;
@@ -130,7 +132,7 @@ public class WriteActivity extends Activity {
 		try {
 			return dbinfo.serialise(this, random_bytes);
 		} catch (CryptoFailedException e) {
-			log.D("CryptoFailedException-encrypt");
+			Ln.d("CryptoFailedException-encrypt");
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.EncryptError), Toast.LENGTH_SHORT)
 					.show();
@@ -264,7 +266,7 @@ public class WriteActivity extends Activity {
 				try {
 					startActivityForResult(intent, REQUEST_KEYFILE);
 				} catch (ActivityNotFoundException e) {
-					log.D("ActivityNotFoundException");
+					Ln.d("ActivityNotFoundException");
 					e.printStackTrace();
 				}
 			}
@@ -281,7 +283,7 @@ public class WriteActivity extends Activity {
 				try {
 					startActivityForResult(intent, REQUEST_DATABASE);
 				} catch (ActivityNotFoundException e) {
-					log.D("ActivityNotFoundException");
+					Ln.d("ActivityNotFoundException");
 					e.printStackTrace();
 				}
 			}
@@ -370,7 +372,7 @@ public class WriteActivity extends Activity {
 					uri = URLDecoder.decode(uri.substring(7, uri.length()),
 							"US-ASCII");
 				} catch (UnsupportedEncodingException e) {
-					log.E(e.toString());
+					Ln.e(e.toString());
 					e.printStackTrace();
 				}
 				((EditText) findViewById(R.id.database_name)).setText(uri);
