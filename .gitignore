@@ -1,3 +1,10 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+
 #built application files
 *.apk
 *.ap_
@@ -39,4 +46,3 @@ Optional - for older project format, add this section to your gitignore file:
 *.ipr
 *~
 *.swp
-burze2/manifest-merger-release-report.txt
